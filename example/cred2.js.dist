@@ -1,0 +1,13 @@
+// creds.js
+module.exports = {
+  //test account
+  test:{
+    shop_bid: '320124',
+    username: 'testshop4204',
+    password: '',
+
+    username2: 'testuser_943',
+    password2: ''
+  }
+
+}
