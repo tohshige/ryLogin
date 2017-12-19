@@ -15,16 +15,16 @@ const devices = require('./DeviceDescriptors');
 
 let CREDS1 = require('./cred2');// load IPASS
 // let CREDS = CREDS1.test; // アカウント切り替え
-let CREDS = CREDS1.kuroko; // アカウント切り替え
+// let CREDS = CREDS1.kuroko; // アカウント切り替え
 // let CREDS = CREDS1.kuroko; // アカウント切り替え
 //let chromeGuiFlg = false;// NoGUI:true GUI:false
- let chromeGuiFlg = true;// NoGUI:true GUI:false
+let chromeGuiFlg = true;// NoGUI:true GUI:false
 const slowMotion = 50;// GUI時に早すぎる動きを遅くする、大きいほど遅く
 
 
 /*/////////////////////////////*/
 
-async function run() {
+async function run(CREDS) {
   // dom element selectors
   const USERNAME_SELECTOR = '#rlogin-username-ja';
   const PASSWORD_SELECTOR = '#rlogin-password-ja';
@@ -52,7 +52,7 @@ async function run() {
   // await page.emulate(devices['iPhone 6']);
   
   await page.goto(LOGIN_URL);
-  await page.screenshot({ path: 'screenshots/login.png' });
+  await page.screenshot({ path: 'screenshots/login_'+CREDS.username+'.png' });
   // 1st
   await page.click(USERNAME_SELECTOR);
   await page.keyboard.type(CREDS.username);
@@ -66,10 +66,10 @@ async function run() {
   await page.click(PASSWORD_SELECTOR);
   await page.keyboard.type(CREDS.password);
   await page.click(BUTTON_SELECTOR);
-  await page.screenshot({ path: 'screenshots/login1.png' });
+  await page.screenshot({ path: 'screenshots/login1_'+CREDS.username+'.png' });
   
   // await page.waitForNavigation();
-  await page.screenshot({ path: 'screenshots/afterLogin.png' });
+  await page.screenshot({ path: 'screenshots/login2_'+CREDS.username+'.png' });
   // 2nd
   await page.click(USERNAME_SELECTOR2);
   await page.keyboard.type(CREDS.username2);
@@ -77,7 +77,7 @@ async function run() {
   await page.click(PASSWORD_SELECTOR2);
   await page.keyboard.type(CREDS.password2);
   await page.click(BUTTON_SELECTOR2);
-  await page.screenshot({ path: 'screenshots/login2.png' });
+  await page.screenshot({ path: 'screenshots/login3_'+CREDS.username+'.png' });
 
   await page.waitFor(1000);
   
@@ -144,17 +144,42 @@ async function run() {
   // await page.click(ITEM_UPDATE);
   await page.waitFor(2000);
   
-  await page.screenshot({ path: 'screenshots/finish.png' });
+  await page.screenshot({ path: 'screenshots/loginfinish_'+CREDS.username+'.png' });
   // const [handle1, handle2] = await xpath(page, '/html/body/main/div/div[3]/dl[2]/dd/a');
   // console.log(await page.click(e => e.textContent, handle1));
   // console.log(await page.evaluate(e => e.textContent, handle1));
   // console.log(await page.evaluate(e => e.textContent, handle2));
-  
-  
-
+    
   // await page.waitForNavigation();
   await browser.close();
   
 }
-run();
+
+async function runAll(){
+  await run(CREDS1.kuroko);
+
+  // let CREDS = CREDS1.test; // アカウント切り替え
+  await run(CREDS1.test);
+}
+
+
+const {CronJob} = require('cron');
+
+// 秒: 0-59
+// 分: 0-59
+// 時: 0-23
+// 日: 1-31
+// 月: 0-11
+// 週: 0-6
+// 週は0が日曜日。
+// なので月〜金曜日毎日11時30分00秒に実行したければ
+// new CronJob('00 30 11 * * 1-5')
+
+new CronJob('00 58 17 * * 1-5', () => {
+  console.log('Hello');
+  runAll();
+  
+}, null, true);
+
+
 
