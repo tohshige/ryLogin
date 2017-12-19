@@ -17,7 +17,7 @@ let CREDS1 = require('./cred2');// load IPASS
 // let CREDS = CREDS1.test; // アカウント切り替え
 // let CREDS = CREDS1.kuroko; // アカウント切り替え
 // let CREDS = CREDS1.kuroko; // アカウント切り替え
-//let chromeGuiFlg = false;// NoGUI:true GUI:false
+// let chromeGuiFlg = false;// NoGUI:true GUI:false
 let chromeGuiFlg = true;// NoGUI:true GUI:false
 const slowMotion = 50;// GUI時に早すぎる動きを遅くする、大きいほど遅く
 
@@ -156,9 +156,8 @@ async function run(CREDS) {
 }
 
 async function runAll(){
+  await run(CREDS1.sj);
   await run(CREDS1.kuroko);
-
-  // let CREDS = CREDS1.test; // アカウント切り替え
   await run(CREDS1.test);
 }
 
@@ -180,6 +179,7 @@ new CronJob('00 58 17 * * 1-5', () => {
   runAll();
   
 }, null, true);
+
 
 
 
