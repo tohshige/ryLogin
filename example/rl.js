@@ -20,7 +20,7 @@ let CREDS1 = require('./cred2');// load IPASS
 // let chromeGuiFlg = false;// NoGUI:true GUI:false
 let chromeGuiFlg = true;// NoGUI:true GUI:false
 const slowMotion = 50;// GUI時に早すぎる動きを遅くする、大きいほど遅く
-
+let chArgs = ['--no-sandbox', '--disable-setuid-sandbox'];
 
 /*/////////////////////////////*/
 
@@ -45,7 +45,8 @@ async function run(CREDS) {
   // const browser = await puppeteer.launch();
   const browser = await puppeteer.launch({
     headless: chromeGuiFlg,
-    slowMo: slowMotion // slow down by 250ms
+    slowMo: slowMotion, // slow down by 250ms
+    args:chArgs
   });
   const page = await browser.newPage();
   await page.setViewport({ width: 400, height: 800 }); // view portの指定
@@ -174,12 +175,14 @@ const {CronJob} = require('cron');
 // なので月〜金曜日毎日11時30分00秒に実行したければ
 // new CronJob('00 30 11 * * 1-5')
 
-new CronJob('00 58 17 * * 1-5', () => {
+//new CronJob('00 30 23 * * 1-5', () => {
+//           秒 分 時 日月週
+new CronJob('00 45 11 * * 1-5', () => {
   console.log('Hello');
   runAll();
-  
 }, null, true);
 
-
+//単体テスト
+//run(CREDS1.sj);
 
 
