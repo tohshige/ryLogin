@@ -27,8 +27,8 @@ exports.run = async function run(CREDS) {
   // let CREDS = CREDS1.test; // アカウント切り替え
   // let CREDS = CREDS1.kuroko; // アカウント切り替え
   // let CREDS = CREDS1.kuroko; // アカウント切り替え
-  let chromeGuiFlg = false;// NoGUI:true GUI:false
-  // let chromeGuiFlg = true;// NoGUI:true GUI:false
+  //let chromeGuiFlg = false;// NoGUI:true GUI:false
+  let chromeGuiFlg = true;// NoGUI:true GUI:false
   const slowMotion = 50;// GUI時に早すぎる動きを遅くする、大きいほど遅く
   let chArgs = ['--no-sandbox', '--disable-setuid-sandbox'];
   

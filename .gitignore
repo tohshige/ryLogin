@@ -1,4 +1,6 @@
 exp/node_modules
+exp/screenshots
+example/screenshots
 cred.js
 cred2.js
 
