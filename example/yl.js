@@ -20,8 +20,11 @@ let CREDS1 = require('./cred2');// load IPASS
 // let CREDS = CREDS1.kuroko; // アカウント切り替え
 let headlessOn = false;//  false is GUI mode ON
 // let headlessOn = true;// true is GUI mode OFF
+
 const slowMotion = 50;// GUI時に早すぎる動きを遅くする、大きいほど遅く
-let chArgs = ['--no-sandbox', '--disable-setuid-sandbox'];
+let chArgs = ['--no-sandbox', '--disable-setuid-sandbox','--disable-popup-blocking'];
+let dlPath = './Download';
+// let chPref = {'download.default_directory': dlPath ,'download.prompt_for_download': false,'download.directory_upgrade': true } ;
 
 
 /*/////////////////////////////*/
@@ -51,9 +54,11 @@ async function run(CREDS) {
   const browser = await puppeteer.launch({
     headless: headlessOn,
     slowMo: slowMotion, // slow down by 250ms
-    args:chArgs
+    args :chArgs
+    // ,pref :chPref
   });
   const page = await browser.newPage();
+  await page._client.send('Page.setDownloadBehavior', {behavior: 'allow', downloadPath: dlPath});
   await page.setViewport({ width: 400, height: 800 }); // view portの指定
   // await page.emulate(devices['iPhone 6']);
   
@@ -83,10 +88,21 @@ async function run(CREDS) {
   await page.click(BUTTON_SELECTOR);//click download 
   await page.waitFor(1000);
 
-  let dlPath = './screenshots'
-  await page._client.send('Page.setDownloadBehavior', {behavior: 'allow', downloadPath: dlPath})
-  await page.click(BUTTON_SELECTOR2, { clickCount: 1, delay: 100 });//click 2nd download 
+  await page.click(BUTTON_SELECTOR2, { clickCount: 1, delay: 500 });//click 2nd download 
   await page.waitFor(1000);
+  // await page.screenshot({ path: 'screenshots/loginfinish_'+CREDS.username+'.png' });
+  await page.keyboard.press('Enter');
+  await page.waitFor(1000);
+  await page.keyboard.press('Enter');
+  await page.waitFor(1000);
+  await page.keyboard.press('Enter');
+
+  // await page.waitForNavigation();
+
+  // await waitDownloadComplete(dlPath)
+  //   .catch((err) => console.error(err));
+
+  console.log('finished');
 
   // const reportLink = await page.$('a#test');
   // await page._client.send('Page.setDownloadBehavior', {behavior: 'allow', downloadPath: './'});
@@ -96,11 +112,10 @@ async function run(CREDS) {
   // await waitDownloadComplete(dlPath)
   //       .catch((err) => console.error(err));
 
-        // await page.waitForNavigation();
+  // await page.waitForNavigation();
 
   await page.waitFor(2000);
   
-  await page.screenshot({ path: 'screenshots/loginfinish_'+CREDS.username+'.png' });
     
   // await page.waitForNavigation();
   await browser.close();

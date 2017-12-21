@@ -145,7 +145,7 @@ async function run(CREDS) {
   // await page.click(ITEM_UPDATE);
   await page.waitFor(2000);
   
-  await page.screenshot({ path: 'screenshots/loginfinish_'+CREDS.username+'.png' });
+  await page.screenshot({ path: 'screenshots/login4finish_'+CREDS.username+'.png' });
   // const [handle1, handle2] = await xpath(page, '/html/body/main/div/div[3]/dl[2]/dd/a');
   // console.log(await page.click(e => e.textContent, handle1));
   // console.log(await page.evaluate(e => e.textContent, handle1));
