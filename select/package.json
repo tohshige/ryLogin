@@ -1,0 +1,17 @@
+{
+  "name": "select",
+  "version": "1.0.0",
+  "description": "select from json file",
+  "main": "select.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "select"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "json-query": "^2.2.2"
+  }
+}

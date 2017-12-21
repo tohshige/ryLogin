@@ -4,6 +4,7 @@ var jsonQuery = require('json-query')
 var fs = require( "fs" );
 
 // const images2 = JSON.parse( fs.readFileSync( '../../used1r/dist/all.utf8.json'));
+// const images2 =  fs.readFileSync( '../../used1r/dist/all.utf8.json');
 const images2 =  fs.readFileSync( '../../test/used1r/dist/all.utf8.json');
 
 var data = {
@@ -34,6 +35,7 @@ var helpers = {
 var result = jsonQuery('people:select(name, country)', {
   data: data, locals: helpers
 }).value
+c(result);
 
 // console.log(result);
 // console.log(
@@ -50,7 +52,6 @@ function c(arry){
 }
 c(result);
 
-  
 var result = jsonQuery('select(itemURL, itemNo)', {
   data: images2, locals: helpers
 }).value
