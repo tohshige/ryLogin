@@ -13,8 +13,10 @@ const fs        = require('fs');
 const devices   = require('./DeviceDescriptors');
 
 //const debug = require('debug')('puppeteer');
-
-let CREDS1 = require('./cred2');// load IPASS
+if(process.argv[2]){
+  var argv2 = process.argv[2];
+}
+let CREDS1 = require('../cred2');// load IPASS
 // let CREDS = CREDS1.test; // アカウント切り替え
 // let CREDS = CREDS1.kuroko; // アカウント切り替え
 // let CREDS = CREDS1.kuroko; // アカウント切り替え
@@ -129,7 +131,6 @@ async function runAll(){
 }
 
 
-const {CronJob} = require('cron');
 
 // 秒: 0-59
 // 分: 0-59
@@ -140,16 +141,19 @@ const {CronJob} = require('cron');
 // 週は0が日曜日。
 // なので月〜金曜日毎日11時30分00秒に実行したければ
 // new CronJob('00 30 11 * * 1-5')
+if (!argv2){
+  const {CronJob} = require('cron');
+  new CronJob('00 30 23 * * 1-5', () => {
+    console.log('Hello');
+    runAll();
+  }, null, true);
+}
 
-// new CronJob('00 58 17 * * 1-5', () => {
-//   console.log('Hello');
-//   runAll();
-  
-// }, null, true);
-
-// test single account
-run(CREDS1.testY);
-
+if (argv2){
+  console.log(argv2);
+  // test single account
+  run(CREDS1[argv2]);
+}
 
 
 //////////////////////////

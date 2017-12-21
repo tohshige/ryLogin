@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-let CREDS1 = require('../cred2');// load IPASS
+let CREDS1 = require('../../cred2');// load IPASS
 let CREDS = CREDS1.test; // アカウント切り替え
 
 

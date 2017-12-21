@@ -24,6 +24,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const CREDS1 = require('../cred2');// load IPASS
+
 app.use('/', index);
 app.use('/users', users);
 
@@ -31,11 +33,12 @@ app.use('/users', users);
 //var port = '3000';
 //app.listen(port);
 
+console.info('start http://localhost:3000')
 
-
+app.use('/screenshots', express.static('./screenshots'), serveIndex('./screenshots', {'icons': true}))
 app.use('/dest', express.static('../dest'), serveIndex('../dest', {'icons': true}))
 app.use('/dest2', express.static('/views'), serveIndex('/views', {'icons': true}))
-app.use('/dest1', express.static('../../ryLogin/example/screenshots'), serveIndex('../../ryLogin/example/screenshots', {'icons': true}))
+app.use('/dest1', express.static('../example/screenshots'), serveIndex('../../ryLogin/example/screenshots', {'icons': true}))
 
 
 // catch 404 and forward to error handler

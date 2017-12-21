@@ -3,16 +3,18 @@ extends layout
 block content
   h1= title
   p Welcome to #{title} yes ようこそ
-
-  p #{CREDS} creds
-   - var userNum = CREDS1.length;
+  - var userNum = CREDS1.length;
   p #{CREDS1.test.username} creds
   p
     a(href="../dest1/") click this dest
   p
-    a(href="/users/") click this users
+    a(href="/users/") 1:クリックで楽天CSVのダウンロード申請
+  p
+    a(href="/users/sj") 2:クリックで楽天CSVのダウンロード申請
 
 
-  p userNum #{userNum}
+  -var count = 0 
   for i, index in CREDS1
-    p #{i['username']} 
+    - count ++
+    p #{index} : #{i['username']}   
+  p total account :  #{count}
