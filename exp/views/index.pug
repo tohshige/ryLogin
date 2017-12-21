@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title} yes ようこそ
+
+  p #{CREDS} creds
+   - var userNum = CREDS1.length;
+  p #{CREDS1.test.username} creds
+  p
+    a(href="../dest1/") click this dest
+  p
+    a(href="/users/") click this users
+
+
+  p userNum #{userNum}
+  for i, index in CREDS1
+    p #{i['username']} 
