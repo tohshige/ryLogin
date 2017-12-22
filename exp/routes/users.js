@@ -55,7 +55,7 @@ function mes(res,user){
    ブラウザを  閉じるかリンク先のスクリーンショットをご確認ください <a href=/screenshots/> screenShots へ');
 }
 function mesRemove(res,filelist){
-  res.send('<h3>連打禁止</h3> deleted <br><pre>'+filelist+'</pre><br> の実行処理が走りました<br> \
+  res.send('<h3>連打禁止</h3> スクリーンショットフォルダのファイルを削除 <br><pre>'+filelist+'</pre><br> の実行処理が走りました<br> \
   <br>  <a href=/> TOP へ');
 }
 // router.get('/creds', function(req, res, next) {
