@@ -28,11 +28,36 @@ router.get('/', function(req, res, next) {
 
 });
 
-// router.get('/sjapan', function(req, res, next) {
-//   rl.run(CREDS1.sj);
-//   res.send('respond with a resource');
-// });
+router.get('/sjapan', function(req, res, next) {
+  rl.run(CREDS1.sj);
+  mes(res, 'sjapan');
+});
+router.get('/kuroko', function(req, res, next) {
+  rl.run(CREDS1.kuroko);
+  mes(res, 'kuroko');
+});
 
+router.get('/removeSS', function(req, res, next) {
+  const del = require('del');
+  let list = '';
+  del(['screenshots/*.png', '!screenshots/README.md']).then(paths => {
+      console.log('Deleted files and folders:\n', paths.join('\n'));
+      list = paths.join('\n');
+      mesRemove(res, list);
+    });
+  
+});
+
+
+function mes(res,user){
+  res.send('<h3>連打禁止</h3><br>user: '+user+' の実行処理が走りました、<br> \
+  うまく実行されたらFTPサーバーへCSVがダウンロードされています<br>\
+   ブラウザを  閉じるかリンク先のスクリーンショットをご確認ください <a href=/screenshots/> screenShots へ');
+}
+function mesRemove(res,filelist){
+  res.send('<h3>連打禁止</h3> deleted <br><pre>'+filelist+'</pre><br> の実行処理が走りました<br> \
+  <br>  <a href=/> TOP へ');
+}
 // router.get('/creds', function(req, res, next) {
 //   console.log(CREDS1);
 //   // res.send(CREDS);
