@@ -36,11 +36,14 @@ app.use('/users', users);
 //var port = '8080';
 //var port = '3000';
 //app.listen(port);
+const tool = require('./myTools');
+console.log(tool.nowDateTime());
 
-console.info('start http://localhost:3000')
+
+console.info('start http://localhost:3000');
 
 app.use('/screenshots', express.static('./screenshots'), serveIndex('./screenshots', {'icons': true}))
-app.use('/dest', express.static('../dest'), serveIndex('../dest', {'icons': true}))
+app.use('/dest',  express.static('../dest'), serveIndex('../dest', {'icons': true}))
 app.use('/dest2', express.static('/views'), serveIndex('/views', {'icons': true}))
 app.use('/dest1', express.static('../example/screenshots'), serveIndex('../../ryLogin/example/screenshots', {'icons': true}))
 

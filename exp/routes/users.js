@@ -7,7 +7,7 @@ let rl = require('../../example/rl');// load IPASS
 let CREDS = CREDS1.test; // アカウント切り替え
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/exec', function(req, res, next) {
   // console.log(CREDS1);
 
   // const exec = require('child_process').exec;
@@ -28,35 +28,47 @@ router.get('/', function(req, res, next) {
 
 });
 
+router.get('/', function(req, res, next) {
+  res.render('users', { title: 'Users',CREDS: CREDS , CREDS1:CREDS1});
+});
+
+
 router.get('/sjapan', function(req, res, next) {
   rl.run(CREDS1.sj);
   mes(res, 'sjapan');
 });
+
 router.get('/kuroko', function(req, res, next) {
   rl.run(CREDS1.kuroko);
   mes(res, 'kuroko');
 });
 
-router.get('/removeSS', function(req, res, next) {
-  const del = require('del');
-  let list = '';
-  del(['screenshots/*.png', '!screenshots/README.md']).then(paths => {
-      console.log('Deleted files and folders:\n', paths.join('\n'));
-      list = paths.join('\n');
-      mesRemove(res, list);
-    });
-  
+router.get('/test', function(req, res, next) {
+  var filename = rl.run(CREDS1.test);
+  mes(res, CREDS1.test.username + 'のファイル名(日付時間)は ' + filename);
+});
+
+router.get("/removeSS", function(req, res, next) {
+  const del = require("del");
+  let list = "";
+  del(["screenshots/*.png", "!screenshots/README.md"]).then(paths => {
+    console.log("Deleted files and folders:\n", paths.join("\n"));
+    list = paths.join("\n");
+    mesRemove(res, list);
+  });
 });
 
 
 function mes(res,user){
   res.send('<h3>連打禁止</h3><br>user: '+user+' の実行処理が走りました、<br> \
   うまく実行されたらFTPサーバーへCSVがダウンロードされています<br>\
-   ブラウザを  閉じるかリンク先のスクリーンショットをご確認ください <a href=/screenshots/> screenShots へ');
+   ブラウザを  閉じるかリンク先のスクリーンショットをご確認ください <a href=/screenshots/> screenShots へ</a>');
 }
 function mesRemove(res,filelist){
-  res.send('<h3>連打禁止</h3> スクリーンショットフォルダのファイルを削除 <br><pre>'+filelist+'</pre><br> の実行処理が走りました<br> \
-  <br>  <a href=/> TOP へ');
+  res.send('<h3>連打禁止</h3> スクリーンショットフォルダのファイルを削除 <br>\
+  <pre>'+filelist+'</pre><br>\
+   の実行処理が走りました<br> \
+  <br><a href=/> TOP へ </a>');
 }
 // router.get('/creds', function(req, res, next) {
 //   console.log(CREDS1);

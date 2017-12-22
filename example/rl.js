@@ -19,7 +19,12 @@ if(process.argv[2]){
 exports.run = async function run(CREDS) {
   const puppeteer = require('puppeteer');
   const devices = require('./DeviceDescriptors');
-  
+  const moment = require('moment');// datetime libs
+  const jst = +9;
+  let now = moment().utcOffset(jst).format("YYYY-MMDD-HHmm");
+  const fileName = CREDS.username + '_' + now;
+  console.log(fileName);
+
   //const debug = require('debug')('puppeteer');
   
   let CREDS1 = require('../cred2');// load IPASS
@@ -61,7 +66,7 @@ exports.run = async function run(CREDS) {
   // await page.emulate(devices['iPhone 6']);
   console.log('start!');
   await page.goto(LOGIN_URL);
-  await page.screenshot({ path: 'screenshots/login_'+CREDS.username+'.png' });
+  await page.screenshot({ path: 'screenshots/login0_'+fileName+'.png' });
   // 1st
   await page.click(USERNAME_SELECTOR);
   await page.keyboard.type(CREDS.username);
@@ -75,10 +80,10 @@ exports.run = async function run(CREDS) {
   await page.click(PASSWORD_SELECTOR);
   await page.keyboard.type(CREDS.password);
   await page.click(BUTTON_SELECTOR);
-  await page.screenshot({ path: 'screenshots/login1_'+CREDS.username+'.png' });
+  await page.screenshot({ path: 'screenshots/login1_'+fileName+'.png' });
   
   // await page.waitForNavigation();
-  await page.screenshot({ path: 'screenshots/login2_'+CREDS.username+'.png' });
+  await page.screenshot({ path: 'screenshots/login2_'+fileName+'.png' });
   // 2nd
   await page.click(USERNAME_SELECTOR2);
   await page.keyboard.type(CREDS.username2);
@@ -86,7 +91,7 @@ exports.run = async function run(CREDS) {
   await page.click(PASSWORD_SELECTOR2);
   await page.keyboard.type(CREDS.password2);
   await page.click(BUTTON_SELECTOR2);
-  await page.screenshot({ path: 'screenshots/login3_'+CREDS.username+'.png' });
+  await page.screenshot({ path: 'screenshots/login3_'+fileName+'.png' });
 
   await page.waitFor(1000);
   
@@ -153,7 +158,7 @@ exports.run = async function run(CREDS) {
   // await page.click(ITEM_UPDATE);
   await page.waitFor(2000);
   
-  await page.screenshot({ path: 'screenshots/login4finish_'+CREDS.username+'.png' });
+  await page.screenshot({ path: 'screenshots/login4_finish_'+fileName+'.png' });
   // const [handle1, handle2] = await xpath(page, '/html/body/main/div/div[3]/dl[2]/dd/a');
   // console.log(await page.click(e => e.textContent, handle1));
   // console.log(await page.evaluate(e => e.textContent, handle1));
@@ -161,6 +166,7 @@ exports.run = async function run(CREDS) {
     
   // await page.waitForNavigation();
   await browser.close();
+  return fileName;
   
 }
 
