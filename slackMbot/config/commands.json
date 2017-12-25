@@ -1,0 +1,27 @@
+{
+  "help": {
+    "alias": ["halp"],
+    "endpoint": "#",
+    "help": "help [command](optional)",
+    "description":
+      "To get help on all supported commands, or a specified command"
+  },
+
+  "gem": {
+    "alias": [],
+    "endpoint": "https://rubygems.org/api/v1/gems/{gem}.json",
+    "help": "gem [gem-name]",
+    "description": "Fetches details of the specified Ruby gem"
+  },
+
+  "item": {
+    "alias": [],
+    "endpoint": "https://rubygems.org/api/v1/gems/{gem}.json",
+    "help": "item [itemURL]",
+    "description": "csv 内を検索して返事。\n部分一致であいまい検索、複数マッチしたら複数返事"
+  },
+
+  "error": {
+    "exclude": true
+  }
+}
