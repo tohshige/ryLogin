@@ -1,7 +1,8 @@
 var slackTerminal = require('slack-terminalize');
-
-slackTerminal.init('xoxb-token', {
-      // slack rtm client options here
+var cred = require('./cred');
+console.log(cred.slack);
+slackTerminal.init(cred.slack, {
+    // slack rtm client options here
     // more info at: https://github.com/slackhq/node-slack-client/blob/master/lib/clients/rtm/client.js
 }, {
     // app configurations to suit your project structure
