@@ -13,7 +13,7 @@ module.exports = function (param) {
   // var filtered = _.where(obj, {itemURL: "nice"});
   // console.log(filtered);
   var filtered = _.where(jsonData, {itemURL: param.args[0]});
-  console.log(filtered);
+  // console.log(filtered);
 
   console.log(filtered.itemURL);
   console.log(filtered.itemNo);
@@ -36,10 +36,14 @@ module.exports = function (param) {
   // util.postMessage(channel, info.join('\n'));
 
   var items = _.filter(jsonData, function(item){
-    return item.itemURL.indexOf(param.args[0])>=0;
+    if (item.itemURL){
+      return item.itemURL.indexOf(param.args[0])>=0;
+    }
   });
+  var count = 0;
   console.log('items.length:' + items.length);
   _.each(items,function(filtered){
+    count ++ ;
     // console.log(filtered.price)
     info.push('itemURL : ' + filtered.itemURL );
     // info.push('itemImgURL : ' + filtered.itemImgURL );
@@ -48,10 +52,12 @@ module.exports = function (param) {
     info.push('price   : ¥' + filtered.price);
     info.push('RAC番号　: ' + filtered['RAC番号']);
     info.push('在庫数   : ' + filtered['在庫数']);
+    info.push('倉庫指定 : ' + filtered['倉庫指定']);
     var itemurl = 'https://item.rakuten.co.jp/' + shopName + '/' + filtered.itemURL;
     info.push('URL  : ' + itemurl);
     info.push('--------');
   });
+  info.push('Result item count :' + count);
 
   util.postMessage(channel, info.join('\n'));
 
