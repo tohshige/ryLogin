@@ -32,11 +32,12 @@ exports.run = async function run(CREDS) {
   // let CREDS = CREDS1.test; // アカウント切り替え
   // let CREDS = CREDS1.kuroko; // アカウント切り替え
   // let CREDS = CREDS1.kuroko; // アカウント切り替え
-  //let chromeGuiFlg = false;// NoGUI:true GUI:false
-  let chromeGuiFlg = true;// NoGUI:true GUI:false
+  // let chromeGuiFlg = false;// NoGUI:true GUI:false
+  // let chromeGuiFlg = true;// NoGUI:true GUI:false
+  let chromeGuiFlg = (argv2) ? false : true ;// NoGUI:true GUI:false
   const slowMotion = 50;// GUI時に早すぎる動きを遅くする、大きいほど遅く
   let chArgs = ['--no-sandbox', '--disable-setuid-sandbox'];
-  
+
 
   // dom element selectors
   const USERNAME_SELECTOR = '#rlogin-username-ja';
@@ -124,7 +125,7 @@ exports.run = async function run(CREDS) {
 
   const SUBMIT= 'body > form > table:nth-child(4) > tbody > tr > td > input[type="submit"]';
   await page.waitFor(1000);
-  for (let i = 0; i < 5; i++){
+  for (let i = 0; i < 4; i++){
     await page.waitFor(500);
     await page.keyboard.press('Tab');
   }
@@ -132,17 +133,21 @@ exports.run = async function run(CREDS) {
   
   // await page.click(SUBMIT);
   
-  await page.waitFor(1000);
+  await page.waitFor(2000);
   const ITEM_UPDATE = 'https://mainmenu.rms.rakuten.co.jp/?left_navi=11';
-  await page.goto(ITEM_UPDATE);
+  await page.goto(ITEM_UPDATE, {waitUntil: 'networkidle2'});
+
 
   await page.waitFor(1000);
   // const ITEM_UPDATE1 = 'https://item.rms.rakuten.co.jp/rms/mall/rsf/item/vc?__event=RI00_001_002&shop_bid=320124';
   const ITEM_UPDATE1 = 'https://item.rms.rakuten.co.jp/rms/mall/rsf/item/vc?__event=RI00_001_002&shop_bid=' + CREDS.shop_bid ;
-  await page.goto(ITEM_UPDATE1);
+  await page.goto(ITEM_UPDATE1, {waitUntil: 'networkidle2'});
 
-  await page.waitFor(1000);
-  const ITEM_UPDATE2 = '#r_07';
+  // await page.waitForNavigation();/////////// WAIT FOR DEBUG /////////
+
+  
+  await page.waitFor(2000);
+  const ITEM_UPDATE2 = '#r_08';
   // const ITEM_UPDATE2 = 'body > form > table > tbody > tr > td:nth-child(2) > table:nth-child(4) > tbody > tr > td:nth-child(2) > table > tbody > tr:nth-child(17) > td:nth-child(2) > font > b > label';
   await page.click(ITEM_UPDATE2);
 
