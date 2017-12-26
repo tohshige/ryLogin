@@ -7,7 +7,7 @@ let CREDS = CREDS1.test; // アカウント切り替え
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express',CREDS: CREDS , CREDS1:CREDS1});
+  res.render('index', { title: 'ry Menu',CREDS: CREDS , CREDS1:CREDS1});
 });
 
 module.exports = router;

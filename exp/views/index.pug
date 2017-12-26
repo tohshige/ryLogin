@@ -1,24 +1,107 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title} yes ようこそ
-  - var userNum = CREDS1.length;
-  p test user is >> #{CREDS1.test.username} creds
-  p
-    a(href="/users/kuroko") 1 kuroko:クリックで楽天CSVのダウンロード申請
-  p
-    a(href="/users/sjapan") 2 sjapan :クリックで楽天CSVのダウンロード申請
-  p
-    a(href="/dest1/") open test folder
-  p
-    a(href="/screenshots/") open screenshot folder
-  p
-    a(href="/users/removeSS") !! SS フォルダを空にする
+  .ui.segment
+    h1= title
+    p Welcome to #{title} | ようこそ#{title}へ
+    - var userNum = CREDS1.length;
+    p test user is >> #{CREDS1.test.username} | テストアカウント
+    //- p
+    //-   a(href="/users/kuroko") 1 kuroko:クリックで楽天CSVのダウンロード申請
+    //- p
+    //-   a(href="/users/sjapan") 2 sjapan :クリックで楽天CSVのダウンロード申請
+    //- p
+    //-   a(href="/dest1/") open test folder
+    //- p
+    //-   a(href="/screenshots/") open screenshot folder
+    //- p
+    //-   a(href="/users/removeSS") !! SS フォルダを空にする
 
 
-  -var count = 0 
-  for i, index in CREDS1
-    - count ++
-    p #{index} : #{i['username']}   
-  p total account :  #{count}
+
+  .ui.text.container
+    h4.ui.top.attached.block.header screenshots
+    .ui.attached.segment
+
+      a(href="/screenshots/").ui.inverted.blue.button 
+        i.photo.icon 
+        span スクリーンショットフォルダ
+
+      a(href="/users/removeSS").ui.animated.fade.button(tabindex='0')
+        .visible.content 
+          i.trash.icon 
+          span スクリーンショットフォルダ
+        .hidden.content
+          | ファイルを削除して空にする
+    
+    h4.ui.attached.block.header buttons
+    .ui.attached.segment
+
+      a(href="/users/kuroko").ui.inverted.red.animated.button(tabindex='0')
+        .visible.content 
+          span ( kuroko )クリックで楽天CSV
+            i.right.arrow.icon 
+        .hidden.content
+          span ダウンロード申請
+            i.down.arrow.icon 
+
+      .ui.section.divider
+
+      a(href="/users/sj").ui.inverted.red.animated.button(tabindex='0')
+        .visible.content 
+          span ( sjapan )クリックで楽天CSV
+            i.right.arrow.icon 
+        .hidden.content
+          span ダウンロード申請
+            i.down.arrow.icon 
+
+      .ui.section.divider
+
+      a(href="/users/test").ui.inverted.red.animated.button(tabindex='0')
+        .visible.content 
+          span ( test )クリックで楽天CSV
+            i.right.arrow.icon 
+        .hidden.content
+          span ダウンロード申請
+            i.down.arrow.icon 
+
+    h4.ui.attached.block.header accounts
+    .ui.attached.segment
+      -var count = 0 
+      for i, index in CREDS1
+        - count ++
+        p #{index} : #{i['username']}   
+      //- p total account :  #{count}
+
+    h4.ui.bottom.attached.block.header total account :  #{count}
+
+
+    //- .ui.inverted.segment
+        button.ui.inverted.button Standard
+          |   
+          button.ui.inverted.red.button Red
+          |   
+          button.ui.inverted.orange.button Orange
+          |   
+          button.ui.inverted.yellow.button Yellow
+          |   
+          button.ui.inverted.olive.button Olive
+          |   
+          button.ui.inverted.green.button Green
+          |   
+          button.ui.inverted.teal.button Teal
+          |   
+          button.ui.inverted.blue.button Blue
+          |   
+          button.ui.inverted.violet.button Violet
+          |   
+          button.ui.inverted.purple.button Purple
+          |   
+          button.ui.inverted.pink.button Pink
+          |   
+          button.ui.inverted.brown.button Brown
+          |   
+          button.ui.inverted.grey.button Grey
+          |   
+          button.ui.inverted.black.button Black  
+
