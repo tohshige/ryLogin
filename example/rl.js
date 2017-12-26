@@ -148,10 +148,11 @@ exports.run = async function run(CREDS) {
   
   await page.waitFor(2000);
   const ITEM_UPDATE2 = '#r_08';
+  // const ITEM_UPDATE2 = '#r_07';
   // const ITEM_UPDATE2 = 'body > form > table > tbody > tr > td:nth-child(2) > table:nth-child(4) > tbody > tr > td:nth-child(2) > table > tbody > tr:nth-child(17) > td:nth-child(2) > font > b > label';
   await page.click(ITEM_UPDATE2);
-
-  for (let i = 0; i < 3; i++){
+  // press [csv download] btm  
+  for (let i = 0; i < 2; i++){
     await page.waitFor(500);
     await page.keyboard.press('Tab');
   }
