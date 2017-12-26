@@ -20,7 +20,9 @@ app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(basicAuth('mono', 'mono9696'));
+const CREDS1 = require('../cred2');// load IPASS
+
+app.use(basicAuth(CREDS1.admin.name, CREDS1.admin.word));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -28,7 +30,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const CREDS1 = require('../cred2');// load IPASS
 
 app.use('/', index);
 app.use('/users', users);
@@ -36,9 +37,18 @@ app.use('/users', users);
 //var port = '8080';
 //var port = '3000';
 //app.listen(port);
+
 const tool = require('./myTools');
 console.log(tool.nowDateTime());
-
+var yearDateTime =tool.nowDateTime();
+console.log('yearDateTime:' + yearDateTime);
+console.log(tool.localIP());
+var ipArray = tool.localIP();
+console.log(ipArray.length);
+console.log(ipArray[0].indexOf('192'));
+// console.log(ipArray[1].indexOf('192'));
+console.log(ipArray[0]);
+console.log(ipArray[1]);
 
 console.info('start http://localhost:3000');
 
