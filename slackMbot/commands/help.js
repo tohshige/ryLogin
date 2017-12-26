@@ -19,7 +19,13 @@ var _helpAll = function () {
 };
 
 var _helpCommand = function (name) {
-	var response = [ commands[name].help, 'Alias: ' + commands[name].alias.join(', '), commands[name].description ];
+  var response = [];
+  if (commands[name].alias[1]){
+    var cmdAlias = 'Alias: ' + commands[name].alias.join(', ');
+    response = [ commands[name].help, cmdAlias, commands[name].description ];
+  }else{
+    response = [ commands[name].help,           commands[name].description ];
+  }
 	return response.join('\n');
 };
 
