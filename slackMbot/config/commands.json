@@ -16,7 +16,7 @@
 
   "item": {
     "alias": [],
-    "endpoint": "https://rubygems.org/api/v1/gems/{gem}.json",
+    "endpoint": "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?format=json&applicationId=1049332431882910331&itemCode={shopItemCode}",
     "help": "item [itemURL]",
     "description": "csv 内を検索して返事, 部分一致であいまい検索、複数マッチしたら複数返事\n 1. 自分のプライベートチャネルを開く\n 2. /invite @m96bot\n 3. help item"
   },
@@ -26,6 +26,13 @@
     "endpoint": "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?format=json&applicationId=1049332431882910331&itemCode={shopItemCode}",
     "help": "item [itemURL]",
     "description": "csv 内を検索して返事, 部分一致であいまい検索、複数マッチしたら複数返事\n 1. 自分のプライベートチャネルを開く\n 2. /invite @m96bot\n 3. help item"
+  },
+
+  "ritem": {
+    "alias": [],
+    "endpoint": "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?format=json&applicationId=1049332431882910331&itemCode={shopItemCode}",
+    "help": "ritem [itemURL] 楽天API検索付き",
+    "description": "csv 内を検索して返事, 部分一致であいまい検索、複数マッチしたら複数返事\n ritem : 楽天APIも同時に検索します。\n 1. 自分のプライベートチャネルを開く\n 2. /invite @m96bot\n 3. help item"
   },
 
   "error": {

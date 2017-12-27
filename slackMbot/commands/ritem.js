@@ -65,13 +65,14 @@ module.exports = function (param) {
           Item = ItemsApi[0]['Item'];
           console.log(Item);
     
+          info.push(filtered.itemURL + ' :WEBでの表示されているようです(在庫あり)');
           info.push('Count: ' + body.count + ' Hits: ' + body.hits + ' pageCount: ' + body.pageCount);
           info.push('itemUrl: ' + Item.itemUrl + ' itemCode: ' + Item.itemCode + ' itemPrice: ' + Item.itemPrice);
           // return info;
           // info.push('itemName   : ' + Items);
         }
         else {
-          info.push(filtered.itemURL + 'WEBでの表示無しOR在庫なし: api には見当たりませんでした。');
+          info.push(filtered.itemURL + ' :WEBでの表示無しOR在庫なし: api には見当たりませんでした。');
         }
       }
       else {
