@@ -14,9 +14,12 @@ module.exports = function (param) {
   // info.push('RAC番号　: ' + filtered['RAC番号']);
 
 
+  var shopName = 'shopjapan' ;
 	var	channel		= param.channel,
 		// endpoint	= param.commandConfig.endpoint.replace('{gem}', param.args[0]);
-		endpoint	= param.commandConfig.endpoint.replace('{shopItemCode}', 'shopjapan%3A0010002632');
+
+  // endpoint	= param.commandConfig.endpoint.replace('{shopItemCode}', shopName + '%3A0010002632');
+  endpoint	= param.commandConfig.endpoint.replace('{shopItemCode}', shopName + '%3A0010001903');
 	console.log(endpoint);
 	// console.log(jsonData);
 	// console.log(obj);

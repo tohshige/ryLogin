@@ -1,0 +1,41 @@
+
+https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemLookup
+
+  // data-p-category_id="14828"
+  script src="https://s.yimg.jp/images/yjdn/js/bakusoku-jsonp-v1-min.js"
+  data-url="http://shopping.yahooapis.jp/ShoppingWebService/V1/json/categoryRanking"
+  data-p-appid="dj00aiZpPUduRWIwMGlSMktLRiZzPWNvbnN1bWVyc2VjcmV0Jng9NGE-"
+  data-p-category_id="a5c8a5a5a5"
+  data-p-type="up">
+
+  data-url="https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemLookup"
+
+  <script src="https://s.yimg.jp/images/yjdn/js/bakusoku-jsonp-v1-min.js"
+  data-url="http://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch"
+  data-p-appid="dj00aiZpPUduRWIwMGlSMktLRiZzPWNvbnN1bWVyc2VjcmV0Jng9NGE-"
+  data-p-store_id="shopjapan"
+  data-p-query="ナイス"
+
+>
+/*  data-p-itemcode="trcs-nqx"*/
+
+<ol>
+{{#ResultSet.0.Result}}
+{{#0}}<li><a href="{{Url}}" target="_blank"><img src="{{Image.Medium}}" alt="{{Name}}"><span class="name">{{Name}}</span><span class="price">{{Price._value}}円（税込）</span></a></li>{{/0}}
+
+{{#0}}
+  <li><a href="{{Url}}"><img src="{{Image.Medium}}"><br>{{Name}}</a></li>
+{{/0}}
+{{#1}}
+  <li><a href="{{Url}}"><img src="{{Image.Medium}}"><br>{{Name}}</a></li>
+{{/1}}
+{{#2}}
+  <li><a href="{{Url}}"><img src="{{Image.Medium}}"><br>{{Name}}</a></li>
+{{/2}}
+{{/ResultSet.0.Result}}
+</ol>
+</script>
+
+data-p-category_id="a5c8a5a5a5"
+
+data-p-category_id="b0c2ccb2a1"

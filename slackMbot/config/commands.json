@@ -31,6 +31,7 @@
   "ritem": {
     "alias": [],
     "endpoint": "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?format=json&applicationId=1049332431882910331&itemCode={shopItemCode}",
+    "endpointY": "http://shopping.yahooapis.jp/ShoppingWebService/V1/itemSearch?appid=dj00aiZpPUduRWIwMGlSMktLRiZzPWNvbnN1bWVyc2VjcmV0Jng9NGE-&category_id=635&sort=-sold",
     "help": "ritem [itemURL] 楽天API検索付き",
     "description": "csv 内を検索して返事, 部分一致であいまい検索、複数マッチしたら複数返事\n ritem : 楽天APIも同時に検索します。\n 1. 自分のプライベートチャネルを開く\n 2. /invite @m96bot\n 3. help item"
   },
