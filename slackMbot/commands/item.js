@@ -52,7 +52,8 @@ module.exports = function (param) {
     info.push('price   : ¥' + filtered.price);
     info.push('RAC番号　: ' + filtered['RAC番号']);
     info.push('在庫数   : ' + filtered['在庫数']);
-    info.push('倉庫指定 : ' + filtered['倉庫指定']);
+    var hyoujiFlg = (filtered['倉庫指定']===0)?' (表示ON)':' (表示OFF)';
+    info.push('倉庫指定 : ' + filtered['倉庫指定'] + hyoujiFlg);
     var itemurl = 'https://item.rakuten.co.jp/' + shopName + '/' + filtered.itemURL;
     info.push('URL  : ' + itemurl);
     info.push('--------');

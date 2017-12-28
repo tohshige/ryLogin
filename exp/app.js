@@ -51,6 +51,8 @@ console.log(ipArray[0]);
 console.log(ipArray[1]);
 
 console.info('start http://localhost:3000');
+console.info('start http://'+ ipArray[0] + ':3000');
+console.info('start http://'+ ipArray[0] + ':8888');
 
 app.use('/screenshots', express.static('./screenshots'), serveIndex('./screenshots', {'icons': true}))
 app.use('/dest',  express.static('../dest'), serveIndex('../dest', {'icons': true}))
