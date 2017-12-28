@@ -1,0 +1,83 @@
+
+<pre>
+  https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemLookup
+
+  // data-p-category_id="14828"
+  script src="https://s.yimg.jp/images/yjdn/js/bakusoku-jsonp-v1-min.js"
+  data-url="http://shopping.yahooapis.jp/ShoppingWebService/V1/json/categoryRanking"
+  data-p-appid="dj00aiZpPUduRWIwMGlSMktLRiZzPWNvbnN1bWVyc2VjcmV0Jng9NGE-"
+  data-p-category_id="a5c8a5a5a5"
+  data-p-type="up">
+
+  data-url="https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemLookup"
+  /*
+  data-p-query="ナイス"
+  data-p-itemcode="trcs-nqx"
+*/
+</pre>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script>
+$.ajax({
+  url:"https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemLookup",
+  appid:"dj00aiZpPUduRWIwMGlSMktLRiZzPWNvbnN1bWVyc2VjcmV0Jng9NGE-",
+  dataType: "jsonp",
+  store_id:"shopjapan",
+  // itemcode:"shopjapan_TRCS-DSS",
+  // itemcode:"TRCS-DSS",
+  itemcode:"trcs",
+  jsonpCallback: "logResults"
+
+
+});
+function logResults(json){
+  console.log(json);
+}
+// console.log(ResultSet);
+// console.log(Result);
+</script>
+<    ======script src="https://s.yimg.jp/images/yjdn/js/bakusoku-jsonp-v1-min.js"
+  data-url="http://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch"
+  data-p-appid="dj00aiZpPUduRWIwMGlSMktLRiZzPWNvbnN1bWVyc2VjcmV0Jng9NGE-"
+  data-p-store_id="shopjapan"
+  data-p-query="trcs"
+>
+console.log(ResultSet);
+console.log(Result);
+{{#ResultSet.0.Result}}
+console.log(ResultSet);
+console.log(Result);
+
+{{#0}}
+Code:{{Code}}<br>
+\{{PriceLabel.BaseDefaultPrice}}円\{{Price._value}}円<br>
+<br>
+<a href="{{Url}}">
+  <img src="{{Image.Small}}"><br>
+  {{Name}}
+</a>
+{{/0}}
+
+<ol>
+{{#0}}
+  <li><a href="{{Url}}"><img src="{{Image.Medium}}"><br>\{{PriceLabel.BaseDefaultPrice}}円\{{Price._value}}円<br>　{{Name}}</a></li>
+{{/0}}
+{{#1}}
+  <li><a href="{{Url}}"><img src="{{Image.Medium}}"><br>{{Name}}</a></li>
+{{/1}}
+{{#2}}
+  <li><a href="{{Url}}"><img src="{{Image.Medium}}"><br>{{Name}}</a></li>
+{{/2}}
+{{#3}}
+  <li><a href="{{Url}}"><img src="{{Image.Medium}}"><br>{{Name}}</a></li>
+{{/3}}
+{{#4}}
+  <li><a href="{{Url}}"><img src="{{Image.Medium}}"><br>{{Name}}</a></li>
+{{/4}}
+{{/ResultSet.0.Result}}
+</ol>
+</script>
+
+data-p-category_id="a5c8a5a5a5"
+
+data-p-category_id="b0c2ccb2a1"
