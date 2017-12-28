@@ -4,13 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var serveIndex = require('serve-index');
+var basicAuth = require('basic-auth-connect');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-
-var serveIndex = require('serve-index');
-
-var basicAuth = require('basic-auth-connect');
 
 var app = express();
 
@@ -30,7 +28,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 app.use('/', index);
 app.use('/users', users);
 
@@ -42,19 +39,20 @@ const tool = require('./myTools');
 console.log(tool.nowDateTime());
 var yearDateTime =tool.nowDateTime();
 console.log('yearDateTime:' + yearDateTime);
-console.log(tool.localIP());
+// console.log(tool.localIP());
 var ipArray = tool.localIP();
-console.log(ipArray.length);
-console.log(ipArray[0].indexOf('192'));
+// console.log(ipArray.length);
+// console.log(ipArray[0].indexOf('192'));
 // console.log(ipArray[1].indexOf('192'));
-console.log(ipArray[0]);
-console.log(ipArray[1]);
+// console.log(ipArray[0]);
+// console.log(ipArray[1]);
 
-console.info('start http://localhost:3000');
-console.info('start http://'+ ipArray[0] + ':3000');
-console.info('start http://'+ ipArray[0] + ':8888');
+console.info(' http://localhost:3000');
+console.info(' http://'+ ipArray[0] + ':3000 this node server \n http://'+ ipArray[0] + ':3000/test/ test folder');
+console.info(' http://'+ ipArray[0] + ':8888 your xamp or mamp server');
 
 app.use('/screenshots', express.static('./screenshots'), serveIndex('./screenshots', {'icons': true}))
+app.use('/test', express.static('./test'), serveIndex('./test', {'icons': true}))
 app.use('/dest',  express.static('../dest'), serveIndex('../dest', {'icons': true}))
 app.use('/dest2', express.static('/views'), serveIndex('/views', {'icons': true}))
 app.use('/dest1', express.static('../example/screenshots'), serveIndex('../../ryLogin/example/screenshots', {'icons': true}))

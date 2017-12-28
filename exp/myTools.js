@@ -7,8 +7,6 @@ exports.nowDateTime = function nowDateTime() {
   return now;
 }
 
-
-
 exports.localIP = function localIP() {
   var os = require('os');
   var ifaces = os.networkInterfaces();
@@ -22,7 +20,6 @@ exports.localIP = function localIP() {
         // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
         return;
       }
-
       if (alias >= 1) {
         // this single interface has multiple ipv4 addresses
         // console.log(ifname + ':' + alias, iface.address);
