@@ -1,0 +1,86 @@
+extends layout
+
+block content
+  p(style="margin-bottom:50px;")
+
+  .ui.text.container.aligned.center.aligned.grid(style="margin-top:50px;")
+    .column
+      h2.ui.blue.image.header #{error}
+        //- img.image(src='assets/images/logo.png')
+        .content
+          | Log-in to your account | ログインしてください
+      form(action="/login", method="POST").ui.large.form
+        .ui.stacked.segment
+          .two.fields
+            .field
+              .ui.left.icon.input
+                i.user.icon
+                input(type='text', name='userName', placeholder='userName')
+            .field
+              .ui.left.icon.input
+                i.lock.icon
+                input(type='password', name='passWord', placeholder='passWord')
+          .three.fields
+            .field
+            .field
+              //- button(type='submit').ui.fluid.large.blue.submit.button Login | ログイン
+            .field
+              button(type='submit').ui.large.blue.animated.button(tabindex='0')
+                .visible.content 
+                  i.left.key.icon 
+                  span Login | ログイン
+                .hidden.content
+                  span Go
+                    i.right.arrow.icon 
+
+        .ui.error.message
+          p error #{error}
+      .ui.message
+        | New to us? 
+        a(href='#') Sign Up
+
+      script.
+        $('.ui.form')
+        .form({
+          fields: {
+            userName: {
+              identifier: 'userName',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter a username | ユーザー名を入れてください'
+                }
+              ]
+            },
+            passWord: {
+              identifier: 'passWord',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter a password | パスワードをいれてください'
+                },
+                {
+                  type   : 'minLength[4]',
+                  prompt : 'Your password must be at least {ruleValue} characters | パスワードは ６ 文字以上入力してください'
+                }
+              ]
+            },
+                }
+        });
+
+  .ui.text.container.aligned.center.aligned.grid
+    .column
+      .ui.stacked.segment
+        .three.fields.ui.large.form
+          .field
+            a(href="/dest1/").ui.inverted.blue.button 
+              i.photo.icon 
+              span test フォルダ
+          .field
+            a(href="/screenshots/").ui.inverted.blue.button 
+              i.photo.icon 
+              span test フォルダ
+          .field
+            a(href="/screenshots/").ui.inverted.blue.button 
+              i.photo.icon 
+              span test フォルダ

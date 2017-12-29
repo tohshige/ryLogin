@@ -2,10 +2,40 @@ doctype html
 html
   head
     title= title
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js")
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css')
     script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.js")
 
     link(rel='stylesheet', href='/stylesheets/style.css')
 
   body
+
+    .ui.fixed.menu(style="margin-bottom:100px;")
+      .ui.container
+        a.header.item(href='/')
+          img.logo(src='https://github.com/tohshige/-ono-96.jp/raw/master/images/logo/mono96_logo.png')
+          | 　ry Menu
+        a.item(href='#') Home
+
+        .ui.simple.dropdown.item
+          | Dropdown 
+          i.dropdown.icon
+          .menu
+            a.item(href='#') Link Item
+            a.item(href='#') Link Item
+            .divider
+            .header Header Item
+            //- .item
+              i.dropdown.icon
+              |             Sub Menu
+              .menu
+                a.item(href='#') Link Item
+                a.item(href='#') Link Item
+            a.item(href='#') Link Item
+        if title
+          a(href="/login/").ui.inverted.blue.button 
+            i.key.icon 
+            span logout  
+
+    p(style="margin-bottom:50px;")
     block content

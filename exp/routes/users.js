@@ -27,10 +27,20 @@ router.get('/exec', function(req, res, next) {
   // rl.run(CREDS1.sj);
 
 });
+/* GET users listing. */
+router.get('/', sessionCheck);
 
-router.get('/', function(req, res, next) {
-  res.render('users', { title: 'Users',CREDS: CREDS , CREDS1:CREDS1});
-});
+function sessionCheck(req, res, next) {
+	if (req.session.userName) {
+		res.render('index', { title: req.session.user.name});
+	} else {
+		res.redirect('/login');
+	}
+};
+
+// router.get('/', function(req, res, next) {
+//   res.render('users', { title: 'Users',CREDS: CREDS , CREDS1:CREDS1});
+// });
 
 
 router.get('/sjapan', function(req, res, next) {

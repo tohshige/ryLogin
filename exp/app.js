@@ -7,8 +7,11 @@ var bodyParser = require('body-parser');
 var serveIndex = require('serve-index');
 var basicAuth = require('basic-auth-connect');
 
+const session = require('express-session');
+
 var index = require('./routes/index');
 var users = require('./routes/users');
+const login = require('./routes/login');
 
 var app = express();
 
@@ -20,16 +23,25 @@ app.set('view engine', 'pug');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 const CREDS1 = require('../cred2');// load IPASS
 
-app.use(basicAuth(CREDS1.admin.name, CREDS1.admin.word));
+// app.use(basicAuth(CREDS1.admin.name, CREDS1.admin.word));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(session({
+	secret: 'hoge',
+	resave: false,
+    saveUninitialized: true,
+	cookie: {
+		// maxAge: 5* 24 * 60 * 60 * 1000
+		maxAge:  3*60*1000
+	}
+}));
 app.use('/', index);
 app.use('/users', users);
+app.use('/login', login);
 
 //var port = '8080';
 //var port = '3000';
@@ -57,6 +69,13 @@ app.use('/dest',  express.static('../dest'), serveIndex('../dest', {'icons': tru
 app.use('/dest2', express.static('/views'), serveIndex('/views', {'icons': true}))
 app.use('/dest1', express.static('../example/screenshots'), serveIndex('../../ryLogin/example/screenshots', {'icons': true}))
 
+var sessionCheck = function(req, res, next) {
+	if (req.session.user) {
+		next();
+	} else {
+		res.redirect('/users');
+	}
+};
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

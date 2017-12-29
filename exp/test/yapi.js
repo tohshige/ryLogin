@@ -1,39 +1,16 @@
-
-<pre>
-  https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemLookup
-
-  // data-p-category_id="14828"
-  script src="https://s.yimg.jp/images/yjdn/js/bakusoku-jsonp-v1-min.js"
-  data-url="http://shopping.yahooapis.jp/ShoppingWebService/V1/json/categoryRanking"
-  data-p-appid="dj00aiZpPUduRWIwMGlSMktLRiZzPWNvbnN1bWVyc2VjcmV0Jng9NGE-"
-  data-p-category_id="a5c8a5a5a5"
-  data-p-type="up">
-
-  data-url="https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemLookup"
-  /*
-  data-p-query="ナイス"
-  data-p-itemcode="trcs-nqx"
-*/
-</pre>
-<h1>Yahooショッピング 商品検索</h1>
-<form>
-<input type="text" id="goods" value="" />
-<input type="button" id="button" value="送信" />
-</form>
-
-<div id="content"></div>
-
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
-<script>
-  var itemcode= "shopjapan_trcs-dss";
-  var appid="dj00aiZpPUduRWIwMGlSMktLRiZzPWNvbnN1bWVyc2VjcmV0Jng9NGE-";
-  var store_id="shopjapan";
-  var responsegroup ='large' ; // small/medium/large
-                               // デフォルト small 取得できるデータのサイズを指定できる smallが最小、最速です。
-                               // 詳細はレスポンスフィールドに記載があります。
-
-$.ajax({
+var itemcodeq= $('#goodsq').val();
+var itemcode= (itemcodeq) ? itemcodeq : "shopjapan_trcs-dss";
+var appid="dj00aiZpPUduRWIwMGlSMktLRiZzPWNvbnN1bWVyc2VjcmV0Jng9NGE-";
+var store_id="shopjapan";
+var responsegroup ='large' ; // small/medium/large
+                              // デフォルト small 取得できるデータのサイズを指定できる smallが最小、最速です。
+                              // 詳細はレスポンスフィールドに記載があります。
+    // itemcode=$('#goods').val()                              
+function itemLookup(){
+  var itemcodeq= $('#goodsq').val();
+  var itemcode= (itemcodeq) ? store_id+ '_' + itemcodeq : "shopjapan_trcs-dss";
+  
+  $.ajax({
   url:"https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemLookup",
   dataType: "jsonp",
   data: {
@@ -42,7 +19,7 @@ $.ajax({
     itemcode:itemcode,
     responsegroup:responsegroup,
     // query: $('#goods').val()
-      },
+  },
   // itemcode:"shopjapan_TRCS-DSS",
   // itemcode:"TRCS-DSS",
   // jsonpCallback: "logResults"
@@ -58,7 +35,7 @@ $.ajax({
     $('#content').append( goods.Result[i].Abstract2);
     $('#content').append( goods.Result[i].Inventories[i]);
     $('#content').append( goods.Result[i].Url);
-    console.log(JSON.parse(goods.Result[i].Inventories[i]));
+    // console.log(JSON.parse(goods.Result[i].Inventories[i]));
   }
 })
 .fail(function(data) {
@@ -68,11 +45,11 @@ $.ajax({
 function logResults(json){
   console.log(json);
 }
+}
+$('#buttonq').on('click',  itemLookup);
+
 // console.log(ResultSet);
 // console.log(Result);
-
-
-
 
 /////////////////////////////////////////////
 $(function() {
@@ -102,5 +79,3 @@ $(function() {
     });
   });
 });
-
-</script>
