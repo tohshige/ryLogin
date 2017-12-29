@@ -32,10 +32,17 @@ html
                 a.item(href='#') Link Item
                 a.item(href='#') Link Item
             a.item(href='#') Link Item
-        if title
-          a(href="/login/").ui.inverted.blue.button 
-            i.key.icon 
-            span logout  
+        .right.menu
+          .item
+            .ui.transparent.inverted.icon.input
+              if title
+                a(href="/login/").ui.inverted.blue.button 
+                  i.key.icon 
+                  span logout  
+              else
+                a(href="/login/").ui.inverted.blue.button.disabled 
+                  i.child.icon 
+                  span logout  
 
     p(style="margin-bottom:50px;")
     block content

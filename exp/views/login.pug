@@ -3,12 +3,14 @@ extends layout
 block content
   p(style="margin-bottom:50px;")
 
-  .ui.text.container.aligned.center.aligned.grid(style="margin-top:50px;")
+  .ui.text.container.aligned.center.aligned.grid(style="margin-top:150px;")
     .column
-      h2.ui.blue.image.header #{error}
+      h2.ui.blue.image.header
         //- img.image(src='assets/images/logo.png')
         .content
-          | Log-in to your account | ログインしてください
+          | Log-in to your account. 
+          i.child.icon 
+          | ログインしてください
       form(action="/login", method="POST").ui.large.form
         .ui.stacked.segment
           .two.fields
