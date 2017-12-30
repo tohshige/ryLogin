@@ -13,6 +13,12 @@ let CREDS = CREDS1.test; // アカウント切り替え
 /* GET home page. */
 router.get('/', sessionCheck);
 
+router.get('/logout', function(req, res, next) {
+	// ログアウト                                                                                                    
+	delete req.session.user;
+	res.redirect('../');
+});
+
 function sessionCheck(req, res, next) {
 	if (req.session.user) {
 		// res.render('index', { title: req.session.user.name});

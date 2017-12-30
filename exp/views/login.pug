@@ -1,8 +1,6 @@
 extends layout
 
 block content
-  p(style="margin-bottom:50px;")
-
   .ui.text.container.aligned.center.aligned.grid(style="margin-top:150px;")
     .column
       h2.ui.blue.image.header
@@ -13,7 +11,7 @@ block content
           | ログインしてください
       form(action="/login", method="POST").ui.large.form
         .ui.stacked.segment
-          .two.fields
+          .three.fields
             .field
               .ui.left.icon.input
                 i.user.icon
@@ -22,24 +20,29 @@ block content
               .ui.left.icon.input
                 i.lock.icon
                 input(type='password', name='passWord', placeholder='passWord')
-          .three.fields
             .field
+              button(type='submit',style='width:100%;line-height: 1.1em;').ui.blue.animated.button(tabindex='0')
+                .visible.content 
+                  i.left.key.icon 
+                  span   Login | ログイン
+                .hidden.content
+                  span Go
+                    i.right.arrow.icon 
+          //- .two.fields
             .field
+            //- .field
               //- button(type='submit').ui.fluid.large.blue.submit.button Login | ログイン
             .field
               button(type='submit').ui.large.blue.animated.button(tabindex='0')
                 .visible.content 
                   i.left.key.icon 
-                  span Login | ログイン
+                  span Login   |   ログイン
                 .hidden.content
                   span Go
                     i.right.arrow.icon 
 
         .ui.error.message
           p error #{error}
-      .ui.message
-        | New to us? 
-        a(href='#') Sign Up
 
       script.
         $('.ui.form')
@@ -70,19 +73,20 @@ block content
                 }
         });
 
-  .ui.text.container.aligned.center.aligned.grid
-    .column
       .ui.stacked.segment
         .three.fields.ui.large.form
           .field
-            a(href="/dest1/").ui.inverted.blue.button 
-              i.photo.icon 
+            a(href="/test/").ui.inverted.blue.button 
+              i.folder.icon 
               span test フォルダ
-          .field
-            a(href="/screenshots/").ui.inverted.blue.button 
-              i.photo.icon 
-              span test フォルダ
-          .field
-            a(href="/screenshots/").ui.inverted.blue.button 
-              i.photo.icon 
-              span test フォルダ
+            //- .field
+            //-   a(href="/screenshots/").ui.inverted.blue.button 
+            //-     i.photo.icon 
+            //-     span test フォルダ
+            //- .field
+            //-   a(href="/screenshots/").ui.inverted.blue.button 
+            //-     i.photo.icon 
+            //-     span test フォルダ      .ui.text.container.aligned.center.aligned.grid
+      .ui.message
+        | Contact us ? 
+        a(href='#') こちらまで

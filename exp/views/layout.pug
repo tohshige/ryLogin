@@ -15,15 +15,22 @@ html
         a.header.item(href='/')
           img.logo(src='https://github.com/tohshige/-ono-96.jp/raw/master/images/logo/mono96_logo.png')
           | 　ry Menu
-        a.item(href='#') Home
+        //- a.item(href='#') Home
 
+        //- .ui.simple.dropdown.item
         .ui.simple.dropdown.item
-          | Dropdown 
+          | Folders 
           i.dropdown.icon
           .menu
-            a.item(href='#') Link Item
-            a.item(href='#') Link Item
+            .header.large API JS テストファイル
+            a.item.right(href='/test/')
+              i.folder.icon
+              span test
             .divider
+            .header ss test
+            a.item(href='/dest1')
+              i.photo.icon
+              span dest
             .header Header Item
             //- .item
               i.dropdown.icon
@@ -36,13 +43,20 @@ html
           .item
             .ui.transparent.inverted.icon.input
               if title
-                a(href="/login/").ui.inverted.blue.button 
-                  i.key.icon 
-                  span logout  
+                a(href="/logout").ui.inverted.blue.animated.button(tabindex='0')
+                  .visible.content 
+                    i.key.icon 
+                    span logout
+                      //- i.right.arrow.icon 
+                  .hidden.content
+                    i.key.icon 
+                    span now
+                      i.right.arrow.icon 
               else
-                a(href="/login/").ui.inverted.blue.button.disabled 
+                a(href="/login/").ui.blue.button.disabled 
                   i.child.icon 
-                  span logout  
+                  span hi hello
+
 
     p(style="margin-bottom:50px;")
     block content
