@@ -7,14 +7,16 @@ html
     script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.js")
 
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/test/fontstyle.css')
 
   body
 
     .ui.fixed.menu(style="margin-bottom:100px;")
       .ui.container
-        a.header.item(href='/') ryMenu
-          //- img.logo(src='https://github.com/tohshige/-ono-96.jp/raw/master/images/logo/mono96_logo.png')
-          //- | 　ry Menu
+        a.header.item(href='/')
+          span.icon-m9ma
+            span.path26(style='font-size:20px;color:gray;') &#xe923;
+          | ryMenu
         //- a.item(href='#') Home
 
         //- .ui.simple.dropdown.item
