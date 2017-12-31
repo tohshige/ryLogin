@@ -1,13 +1,16 @@
 extends layout
 
 block content
-  .ui.text.container.aligned.center.aligned.grid(style="margin-top:150px;")
+  .ui.text.container.aligned.center.aligned.grid(style="margin-top:80px;")
     .column
+      div
+        span.icon-m9ma
+         span.path26(style='font-size:40px;color:#2185D0;') &#xe923;
       h2.ui.blue.image.header
         //- img.image(src='assets/images/logo.png')
         .content
           | Log-in to your account. 
-          i.child.icon 
+          br
           | ログインしてください
       form(action="/login", method="POST").ui.large.form
         .ui.stacked.segment
