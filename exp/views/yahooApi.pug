@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  .ui.container.aligned.center.aligned.grid(style="margin-top:80px;")
+    .column
+      h2.ui.blue.image.header
+        //- img.image(src='assets/images/logo.png')
+        .content
+          | yahoo api test 
+          br
+          | Yahooショッピング検索
+      .ui.stacked.segment.form
+        .three.fields
+          .field
+            h3 ショップID
+            form
+              .ui.icon.input
+                input#shopId(type='text', value='shopjapan' ,placeholder='shopId')
+                i.circular.search.icon
+              //- input#buttonq(type='button', value='送信').ui.button
+          .field
+            h3 商品URL
+            form
+              .ui.icon.input
+                input#goodsq(type='text', value='trcs-dss' ,placeholder='item url 商品URL')
+                i.circular.search.icon
+              input#buttonq(type='button', value='送信').ui.button
+          .field
+            h3 商品名検索(日本語可)
+            form
+              .ui.icon.input
+                input#goods(type='text', value='ナイス')
+                i.circular.search.icon
+              input#button(type='button', value='送信').ui.button
+        #content
+        script(src='https://code.jquery.com/jquery-3.2.1.min.js')
+        script(src='./test/yapi.js')

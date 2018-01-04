@@ -1,7 +1,8 @@
 var itemcodeq= $('#goodsq').val();
-var itemcode= (itemcodeq) ? itemcodeq : "shopjapan_trcs-dss";
-var appid="dj00aiZpPUduRWIwMGlSMktLRiZzPWNvbnN1bWVyc2VjcmV0Jng9NGE-";
-var store_id="shopjapan";
+var shop_id= $('#shopId').val();
+var itemcode = (itemcodeq) ? itemcodeq : "shopjapan_trcs-dss";
+var appid ="dj00aiZpPUduRWIwMGlSMktLRiZzPWNvbnN1bWVyc2VjcmV0Jng9NGE-";
+var store_id = (shop_id) ? shop_id :"shopjapan";
 var responsegroup ='large' ; // small/medium/large
                               // デフォルト small 取得できるデータのサイズを指定できる smallが最小、最速です。
                               // 詳細はレスポンスフィールドに記載があります。
@@ -23,30 +24,36 @@ function itemLookup(){
   // itemcode:"shopjapan_TRCS-DSS",
   // itemcode:"TRCS-DSS",
   // jsonpCallback: "logResults"
-})
-.done(function(data) {
-  var goods = data.ResultSet[0];
-  for(var i = 0; i < 20; i++) {
-    var img_goods = $('<img>').attr('src', goods.Result[i].Image.Small);
-    var img_goods1= '<a href='+ goods.Result[i].Url + '>dd</a>';
-    $('#content').append('<p>' + goods.Result[i].Name).append(img_goods).append(img_goods1);
-    $('#content').append( goods.Result[i].Abstract);
-    $('#content').append( goods.Result[i].Abstract1);
-    $('#content').append( goods.Result[i].Abstract2);
-    $('#content').append( goods.Result[i].Inventories[i]);
-    $('#content').append( goods.Result[i].Url);
-    // console.log(JSON.parse(goods.Result[i].Inventories[i]));
-  }
-})
-.fail(function(data) {
-  alert('error');
-});
+  })
+  .done(function(data) {
+    var goods = data.ResultSet[0];
+    for(var i = 0; i < 20; i++) {
+      var img_goods = $('<img>').attr('src', goods.Result[i].Image.Small);
+      var img_goods1= '<a href='+ goods.Result[i].Url + '></a>';
+      $('#content').append('<p>' + goods.Result[i].Name).append(img_goods).append(img_goods1);
+      $('#content').append( goods.Result[i].Abstract);
+      $('#content').append( goods.Result[i].Abstract1);
+      $('#content').append( goods.Result[i].Abstract2);
+      $('#content').append( goods.Result[i].Inventories[i]);
+      $('#content').append( goods.Result[i].Url);
+      // console.log(JSON.parse(goods.Result[i].Inventories[i]));
+    }
+  })
+  .fail(function(data) {
+    alert('error');
+  });
 
-function logResults(json){
-  console.log(json);
-}
+  function logResults(json){
+    console.log(json);
+  }
+
 }
 $('#buttonq').on('click',  itemLookup);
+
+//clear contents
+$('#buttonq').on('click',  function(e) {
+  $('#content').empty();
+});
 
 // console.log(ResultSet);
 // console.log(Result);

@@ -19,6 +19,16 @@ router.get('/logout', function(req, res, next) {
 	res.redirect('../');
 });
 
+router.get('/y', function (req, res, next) {
+	if (req.session.user) {
+		// res.render('index', { title: req.session.user.name});
+    res.render('yahooApi', { title: 'yahoo api test ',CREDS: CREDS , CREDS1:CREDS1 ,req:req});
+	} else {
+		res.redirect('/login');
+	}
+});
+
+
 function sessionCheck(req, res, next) {
 	if (req.session.user) {
 		// res.render('index', { title: req.session.user.name});
