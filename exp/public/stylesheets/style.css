@@ -19,8 +19,15 @@ a {
   .pcNone {
     display: none ; 
   }
+  .spNone {
+    display: block;
+  }
+
 }
-@media (max-width: 380px) {
+@media (max-width: 480px) {
+  .pcNone {
+    display: block ; 
+  }
 
   .spNone {
     display: none;

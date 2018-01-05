@@ -21,11 +21,18 @@ router.get('/logout', function(req, res, next) {
 
 router.get('/y', function (req, res, next) {
 	if (req.session.user) {
-		// res.render('index', { title: req.session.user.name});
     res.render('yahooApi', { title: 'yahoo api test ',CREDS: CREDS , CREDS1:CREDS1 ,req:req});
 	} else {
-		res.redirect('/login');
+    res.render('yahooApi', { title: 'yahoo api test ',CREDS: CREDS , CREDS1:CREDS1 ,req:req});
+
+    // res.redirect('/login');
 	}
+});
+
+router.get('/y/:id', function (req, res, next) {
+  console.log(req.params.id);
+  var itemId = req.params.id;
+  res.render('yahooApi', { title: 'yahoo api test ',itemId:itemId});
 });
 
 

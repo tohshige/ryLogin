@@ -7,8 +7,9 @@ block content
         //- img.image(src='assets/images/logo.png')
         .content
           | yahoo api test 
-          br
+          br.pcNone
           | Yahooショッピング検索
+      p Enterキーは無効です。入力後[検索]をクリック
       .ui.stacked.segment.form
         .three.fields
           .field
@@ -19,19 +20,25 @@ block content
                 i.circular.search.icon
               //- input#buttonq(type='button', value='送信').ui.button
           .field
-            h3 商品URL
-            form
-              .ui.icon.input
-                input#goodsq(type='text', value='trcs-dss' ,placeholder='item url 商品URL')
+            h3 商品URL,商品IDから検索
+            form.inline
+              .ui.icon.input.ten.wide.field
+                //- - if itemId 
+                //- -    var value = itemId
+                - var value = (itemId)?itemId:'trcs-dss';
+                //- - else
+                //- -    var value = 'trcs-dss'
+                //- p v #{value}  i #{itemId}
+                input#goodsq(type='text', value=value ,placeholder='item url 商品URL')
                 i.circular.search.icon
               input#buttonq(type='button', value='送信').ui.button
           .field
-            h3 商品名検索(日本語可)
+            h3 商品名から検索(日本語可)
             form
-              .ui.icon.input
+              .ui.icon.input.ten.wide.field
                 input#goods(type='text', value='ナイス')
                 i.circular.search.icon
               input#button(type='button', value='送信').ui.button
         #content
         script(src='https://code.jquery.com/jquery-3.2.1.min.js')
-        script(src='./test/yapi.js')
+        script(src='/test/yapi.js')
