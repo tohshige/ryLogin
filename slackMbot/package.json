@@ -4,12 +4,14 @@
   "description": "Sample app to show working with slack-terminalize module",
   "main": "index.js",
   "dependencies": {
+    "nodemon": "^1.14.7",
     "request": "^2.65.0",
     "slack-terminalize": "^1.0.0",
     "underscore": "^1.8.3"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ."
   },
   "repository": {
     "type": "git",

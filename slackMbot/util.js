@@ -9,15 +9,27 @@ var webClient = require('slack-terminalize').getWebClient();
  * 
  */
 var postMessage = function (channel, response, format) {
-
 	format = format || true;
 	response = (format && '```' + response + '```') || response;
-
     // more on this API here: https://api.slack.com/methods/chat.postMessage
 	webClient.chat.postMessage(channel, response, {
 		as_user: true
 	});
-
 };
 
+/// test attachments
+// var postMessage = function (channel, response, format) {
+// 	format = format || true;
+// 	response = (format && '```' + response + '```') || response;
+//     // more on this API here: https://api.slack.com/methods/chat.postMessage
+// 	webClient.chat.postMessage(channel, response, {
+//     as_user: true,
+//     username: response.username,
+//     text: response.text,
+//     icon_url: response.icon_url,
+//     attachments: response.attachments
+// 	});
+// };
+
 exports.postMessage = postMessage;
+// exports.postMessage1 = postMessage1;
