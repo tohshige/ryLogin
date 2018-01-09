@@ -13,14 +13,18 @@ block content
       .ui.stacked.segment.form
         .three.fields
           .field
-            h3 ショップID
+            h4 ショップID
             form
-              .ui.icon.input
+              //- .ui.icon.input
                 input#shopId(type='text', value='shopjapan' ,placeholder='shopId')
                 i.circular.search.icon
               //- input#buttonq(type='button', value='送信').ui.button
+            select#select.ui.dropdown(name='gender')
+              option(value='shopjapan') shopjapan
+              option(value='kuroko') kuroko
+              option(value='levisstore') levisstore
           .field
-            h3 商品URL,商品IDから検索
+            h4 商品URL,商品IDから検索
             form.inline
               .ui.icon.input.ten.wide.field
                 //- - if itemId 
@@ -31,14 +35,36 @@ block content
                 //- p v #{value}  i #{itemId}
                 input#goodsq(type='text', value=value ,placeholder='item url 商品URL')
                 i.circular.search.icon
-              input#buttonq(type='button', value='送信').ui.button
+              input#buttonq(type='button', value='Yahoo検索').ui.button
           .field
-            h3 商品名から検索(日本語可)
+            h4 商品名から検索(日本語可)
             form
-              .ui.icon.input.ten.wide.field
+              .ui.icon.input.sixteen.wide.field
                 input#goods(type='text', value='ナイス')
                 i.circular.search.icon
-              input#button(type='button', value='送信').ui.button
-        #content
+              input#button(type='button', value='Yahoo検索').ui.button
+              input#buttonR(type='button', value='rakuten検索').ui.button
+              input#buttonBoth(type='button', value='両方検索').ui.button.primary
+              .ui.toggle.checkbox
+                input(type='checkbox'  )
+                label 在庫無し(販売不可)も含める
+
+      .ui.stacked.segment.form
+        .two.fields
+          .field
+            #content
+          .field
+            #contentR
+            
+              //- .ui.toggle.checkbox
+              //-   input#toggle-1(type='checkbox', name='public')
+              //-   label.dn(for='toggle-1', data-content='OFF')
+              //-   |     Tax Features
+              //- .ui.checkbox
+              //-   input(type='checkbox', name='fun')
+              //-   label Checkbox
+
+
+        //- #content
         script(src='https://code.jquery.com/jquery-3.2.1.min.js')
         script(src='/test/yapi.js')
