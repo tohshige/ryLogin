@@ -12,30 +12,37 @@ let rl = require('./rl');// load IPASS
 
 if(process.argv[2]){
   var argv2 = process.argv[2];
+  if(process.argv[3]){
+    var argv3 = process.argv[3]
+  }
 }
 
 /*/////////////////////////////*/
 
-exports.run = async function run(CREDS) {
+exports.run = async function run(CREDS, debugFlg) {
   const puppeteer = require('puppeteer');
   const devices = require('./DeviceDescriptors');
   const moment = require('moment');// datetime libs
   const jst = +9;
-  let now = moment().utcOffset(jst).format("YYYY-MMDD-HHmm");
+  const now = moment().utcOffset(jst).format("YYYY-MMDD-HHmm");
   const fileName = CREDS.username + '_' + now;
   console.log(fileName);
+  console.log(CREDS.password);
 
   //const debug = require('debug')('puppeteer');
   
-  let CREDS1 = require('../cred2');// load IPASS
+  const CREDS1 = require('../cred2');// load IPASS
   // let CREDS1 = require('cred2');// load IPASS
   // let CREDS = CREDS1.test; // アカウント切り替え
   // let CREDS = CREDS1.kuroko; // アカウント切り替え
   // let CREDS = CREDS1.kuroko; // アカウント切り替え
-  // let chromeGuiFlg = false;// NoGUI:true GUI:false
-  let chromeGuiFlg = true;// NoGUI:true GUI:false
+
+  const chromeGuiFlg = (debugFlg)?false:true;
+    // const chromeGuiFlg = false;// GUI:ON
+  // const chromeGuiFlg = true;// GUI:OFF
+
   // let chromeGuiFlg = (argv2) ? false : true ;// NoGUI:true GUI:false
-  const slowMotion = 50;// GUI時に早すぎる動きを遅くする、大きいほど遅く
+  const slowMotion = 70;// GUI時に早すぎる動きを遅くする、大きいほど遅く
   let chArgs = ['--no-sandbox', '--disable-setuid-sandbox'];
 
 
@@ -67,7 +74,7 @@ exports.run = async function run(CREDS) {
   // await page.emulate(devices['iPhone 6']);
   console.log('start!');
   await page.goto(LOGIN_URL);
-  await page.screenshot({ path: 'screenshots/login0_'+fileName+'.png' });
+  await page.screenshot({ path: 'screenshots/0_'+fileName+'.png' });
   // 1st
   await page.click(USERNAME_SELECTOR);
   await page.keyboard.type(CREDS.username);
@@ -81,10 +88,10 @@ exports.run = async function run(CREDS) {
   await page.click(PASSWORD_SELECTOR);
   await page.keyboard.type(CREDS.password);
   await page.click(BUTTON_SELECTOR);
-  await page.screenshot({ path: 'screenshots/login1_'+fileName+'.png' });
+  await page.screenshot({ path: 'screenshots/1_'+fileName+'.png' });
   
   // await page.waitForNavigation();
-  await page.screenshot({ path: 'screenshots/login2_'+fileName+'.png' });
+  await page.screenshot({ path: 'screenshots/2_'+fileName+'.png' });
   // 2nd
   await page.click(USERNAME_SELECTOR2);
   await page.keyboard.type(CREDS.username2);
@@ -92,7 +99,7 @@ exports.run = async function run(CREDS) {
   await page.click(PASSWORD_SELECTOR2);
   await page.keyboard.type(CREDS.password2);
   await page.click(BUTTON_SELECTOR2);
-  await page.screenshot({ path: 'screenshots/login3_'+fileName+'.png' });
+  await page.screenshot({ path: 'screenshots/3_'+fileName+'.png' });
 
   await page.waitFor(1000);
   
@@ -125,7 +132,7 @@ exports.run = async function run(CREDS) {
 
   const SUBMIT= 'body > form > table:nth-child(4) > tbody > tr > td > input[type="submit"]';
   await page.waitFor(1000);
-  for (let i = 0; i < 4; i++){
+  for (let i = 0; i < 5; i++){
     await page.waitFor(500);
     await page.keyboard.press('Tab');
   }
@@ -133,7 +140,7 @@ exports.run = async function run(CREDS) {
   
   // await page.click(SUBMIT);
   
-  await page.waitFor(2000);
+  await page.waitFor(2500);
   const ITEM_UPDATE = 'https://mainmenu.rms.rakuten.co.jp/?left_navi=11';
   await page.goto(ITEM_UPDATE, {waitUntil: 'networkidle2'});
 
@@ -145,10 +152,12 @@ exports.run = async function run(CREDS) {
 
   // await page.waitForNavigation();/////////// WAIT FOR DEBUG /////////
 
-  
+  // csv 申請ボタンページ
+  // await page.waitForNavigation();
   await page.waitFor(2000);
   const ITEM_UPDATE2 = '#r_08';
   // const ITEM_UPDATE2 = '#r_07';
+  // const ITEM_UPDATE2 = '#mm_sub0101_12';
   // const ITEM_UPDATE2 = 'body > form > table > tbody > tr > td:nth-child(2) > table:nth-child(4) > tbody > tr > td:nth-child(2) > table > tbody > tr:nth-child(17) > td:nth-child(2) > font > b > label';
   await page.click(ITEM_UPDATE2);
   // press [csv download] btm  
@@ -164,7 +173,7 @@ exports.run = async function run(CREDS) {
   // await page.click(ITEM_UPDATE);
   await page.waitFor(2000);
   
-  await page.screenshot({ path: 'screenshots/login4_finish_'+fileName+'.png' });
+  await page.screenshot({ path: 'screenshots/4_finish_'+fileName+'.png' });
   // const [handle1, handle2] = await xpath(page, '/html/body/main/div/div[3]/dl[2]/dd/a');
   // console.log(await page.click(e => e.textContent, handle1));
   // console.log(await page.evaluate(e => e.textContent, handle1));
@@ -203,9 +212,11 @@ exports.runAll = async function runAll(){
 //   }, null, true);
 // }
 
+// node rl sj
 if (argv2){
   console.log(argv2);
+  console.log(argv3);
   // test single account
-  rl.run(CREDS1[argv2]);
+  rl.run(CREDS1[argv2], argv3);
 }
 
