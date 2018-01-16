@@ -202,15 +202,18 @@ exports.runAll = async function runAll(){
 // new CronJob('00 30 11 * * 1-5')
 
 //new CronJob('00 30 23 * * 1-5', () => {
-//           秒 分 時 日月週
+//             秒 分 時 日月週
 
-// if (!argv2){
-//   const {CronJob} = require('cron');
+if (!argv2){
+  const {CronJob} = require('cron');
 //   new CronJob('00 30 23 * * 1-5', () => {
-//     console.log('Hello');
+//           秒 分 時 日 月 週
+new CronJob('00 00 01 * * 1-5', () => {
+    console.log('Hello');
 //     runAll();
-//   }, null, true);
-// }
+    rl.run(CREDS1.sj);
+  }, null, true);
+}
 
 // node rl sj
 if (argv2){
