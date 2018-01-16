@@ -1,6 +1,9 @@
 var slackTerminal 	= require('slack-terminalize'),
 	commands 		= slackTerminal.getCommands(),
 	util			= require('../util');
+const tool = require('../../exp/myTools');
+var ipArray = tool.localIP();
+console.log(ipArray[0]);
 
 var _helpAll = function () {
 	var name,
@@ -15,6 +18,7 @@ var _helpAll = function () {
 			response.push(index++  + '. ' + _helpCommand(name));
 		}
 	}
+  response.push(ipArray[0]);
 	return response.join('\n');
 };
 
