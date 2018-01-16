@@ -4,7 +4,6 @@ block content
   .ui.segment
     h1= title
     p Welcome to #{title} | ようこそ#{title}へ
-    - var userNum = CREDS1.length;
     p test user is >> #{CREDS1.test.username} | テストアカウント
 
 
@@ -26,12 +25,12 @@ block content
         .hidden.content
           | ファイルを削除して空にする
     
-    h4.ui.attached.block.header buttons
+    h4.ui.attached.block.header buttons ( today is : #{MonthDay} )
     .ui.attached.segment
 
       a(href="/users/kuroko").ui.inverted.red.animated.button(tabindex='0')
         .visible.content 
-          span ( kuroko )クリックで楽天CSV
+          span ( kuroko : #{CREDS1.kuroko.date} )クリックで楽天CSV
             i.right.arrow.icon 
         .hidden.content
           span ダウンロード申請
@@ -41,7 +40,7 @@ block content
 
       a(href="/users/sjapan").ui.inverted.red.animated.button(tabindex='0')
         .visible.content 
-          span ( sjapan )クリックで楽天CSV
+          span ( sjapan : #{CREDS1.sj.date} )クリックで楽天CSV
             i.right.arrow.icon 
         .hidden.content
           span ダウンロード申請
@@ -51,7 +50,7 @@ block content
 
       a(href="/users/test").ui.inverted.red.animated.button(tabindex='0')
         .visible.content 
-          span ( test )クリックで楽天CSV
+          span ( test : #{CREDS1.test.date} )クリックで楽天CSV
             i.right.arrow.icon 
         .hidden.content
           span ダウンロード申請
@@ -59,11 +58,11 @@ block content
 
     h4.ui.attached.block.header accounts
     .ui.attached.segment
-      -var count = 0 
+      - var count = 0 
+      - var cred = CREDS1;
       for i, index in CREDS1
         - count ++
-        p #{index} : #{i['username']}   
-      //- p total account :  #{count}
+        p #{index} : #{i['username']} : #{i['date']}
 
     h4.ui.bottom.attached.block.header total account :  #{count}
 

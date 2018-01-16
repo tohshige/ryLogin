@@ -1,7 +1,8 @@
 extends layout
 
 block content
-  br(style='margin-top:100px;')
-  h2= message
-  h3= error.status
-  pre #{error.stack}
+  .ui.segment
+    br(style='margin:100px;')
+    h2= message
+    h3= error.status
+    pre #{error.stack}
