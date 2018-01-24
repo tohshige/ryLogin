@@ -165,7 +165,9 @@ exports.run = async function run(CREDS, debugFlg) {
     await page.waitFor(500);
     await page.keyboard.press('Tab');
   }
-  await page.keyboard.press('Space');
+  (debugFlg)?
+    await page.waitForNavigation() :
+    await page.keyboard.press('Space');
 
 
 
