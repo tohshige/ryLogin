@@ -4,6 +4,7 @@ exp/screenshots
 example/screenshots
 cred.js
 cred2.js
+cred2.json
 
 exp/package-lock.json
 slackMbot/package-lock.json

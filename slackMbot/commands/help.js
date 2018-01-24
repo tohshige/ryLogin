@@ -42,5 +42,6 @@ module.exports = function (param) {
 	else {
 		response = _helpCommand(param.args[0]);
 	}
-	util.postMessage(channel, response);
+	// util.postMessageHelp(channel, response);
+	util.postMessage(channel, response, 'help');
 };

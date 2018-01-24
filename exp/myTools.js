@@ -37,7 +37,6 @@ exports.localIP = function localIP() {
   return ipArray;
 }
 
-c(process.argv);
 if(process.argv[1].lastIndexOf('myTools')!== -1 && process.argv[2]){
   var argv2 = process.argv[2];
   c(argv2);
@@ -48,6 +47,6 @@ if(process.argv[1].lastIndexOf('myTools')!== -1 && process.argv[2]){
   
 }
 
-function c(arry){
+exports.c = function c(arry){
   console.log('!!!' + arry);
 }

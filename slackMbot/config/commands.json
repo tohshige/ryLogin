@@ -1,10 +1,24 @@
 {
   "help": {
-    "alias": ["halp"],
+    "alias": ["halp","ヘルプ"],
     "endpoint": "#",
     "help": "help [command](optional)",
     "description":
       "To get help on all supported commands, or a specified command"
+  },
+  "url": {
+    "alias": ["短縮","longurl"],
+    "endpoint": "#",
+    "help": "url http://yourlongurl.com.?dummy",
+    "description":
+      "長いURLを短縮URLに変換、URLnの長さは1万文字程度までOK\ntest of Google api"
+  },
+  "gapi": {
+    "alias": [],
+    "endpoint": "#",
+    "help": "url http://yourlongurl.com.?dummy",
+    "description":
+      "GoogleAPIテスト用 長いURLを短縮に変換、1万文字程度までOK"
   },
 
   "gem": {

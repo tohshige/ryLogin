@@ -10,12 +10,24 @@ var webClient = require('slack-terminalize').getWebClient();
  */
 var postMessage = function (channel, response, format) {
 	format = format || true;
-	response = (format && '```' + response + '```') || response;
+	if(format === 'help'){
+    response = (format && ':question:helpを表示します。 ```' + response + '```') || response;
+  }else{
+  response = (format && '```' + response + '```') || response;
+  }
     // more on this API here: https://api.slack.com/methods/chat.postMessage
 	webClient.chat.postMessage(channel, response, {
 		as_user: true
 	});
 };
+// var postMessageHelp = function (channel, response, format) {
+// 	format = format || true;
+// 	response = (format && ':question:```' + response + '```') || response;
+//     // more on this API here: https://api.slack.com/methods/chat.postMessage
+// 	webClient.chat.postMessageHelp(channel, response, {
+// 		as_user: true
+// 	});
+// };
 
 /// test attachments
 // var postMessage = function (channel, response, format) {
@@ -32,4 +44,5 @@ var postMessage = function (channel, response, format) {
 // };
 
 exports.postMessage = postMessage;
+// exports.postMessageHelp = postMessageHelp;
 // exports.postMessage1 = postMessage1;
