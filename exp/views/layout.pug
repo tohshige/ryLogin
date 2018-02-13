@@ -44,13 +44,16 @@ html
                 a.item(href='#') Link Item
             //- a.item(href='#') Link Item
         a.item(href='/y')
-          i.search.icon
-          span yahoo api
+          i.grey.search.icon
+          span Api
+        a.item(href='/usersEdit/edit')
+          i.grey.users.icon
+          span Users
         .right.menu
           .item
             .ui.transparent.inverted.icon.input
               if title
-                a(href="/logout").ui.inverted.blue.animated.button(tabindex='0')
+                a(href="/logout", tabindex='0').ui.inverted.blue.animated.button
                   .visible.content 
                     i.key.icon 
                     span logout

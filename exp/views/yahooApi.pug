@@ -1,15 +1,16 @@
 extends layout
 
 block content
-  .ui.container.aligned.center.aligned.grid(style="margin-top:80px;")
+  .ui.container.aligned.center.aligned.grid(style="margin-top:50px;")
     .column
       h2.ui.blue.image.header
         //- img.image(src='assets/images/logo.png')
         .content
-          | yahoo api test 
+          | Yahoo & Rakuten API  
           br.pcNone
-          | Yahooショッピング検索
-      p Enterキーは無効です。入力後[検索]をクリック
+          | ItemSearch
+      p Enterキーは無効です。入力後[検索]をクリック thisPageViewFile > /ryLogin/exp/views/yahooApi.pug
+
       .ui.stacked.segment.form
         .three.fields
           .field
@@ -48,12 +49,19 @@ block content
               .ui.toggle.checkbox
                 input(type='checkbox'  )
                 label 在庫無し(販売不可)も含める
+              //- .ui.toggle.checkbox#itemCode
+              //-   input(type='checkbox'  )
+              //-   label アイテムコードで検索
 
       .ui.stacked.segment.form
         .two.fields
           .field
+            a.ui.red.circular.label Y  
+            span ahoo
             #content
           .field
+            a.ui.red.circular.label R  
+            span#rResult akuten
             #contentR
             
               //- .ui.toggle.checkbox
@@ -63,7 +71,6 @@ block content
               //- .ui.checkbox
               //-   input(type='checkbox', name='fun')
               //-   label Checkbox
-
 
         //- #content
         script(src='https://code.jquery.com/jquery-3.2.1.min.js')

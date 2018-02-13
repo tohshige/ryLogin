@@ -4,10 +4,10 @@ var itemcode = (itemcodeq) ? itemcodeq : "shopjapan_trcs-dss";
 var appid ="dj00aiZpPUduRWIwMGlSMktLRiZzPWNvbnN1bWVyc2VjcmV0Jng9NGE-";
 var store_id = (shop_id) ? shop_id :"shopjapan";
 var responsegroup ='large' ; // small/medium/large
-                              // デフォルト small 取得できるデータのサイズを指定できる smallが最小、最速です。
-                              // 詳細はレスポンスフィールドに記載があります。
+                             // デフォルト small 取得できるデータのサイズを指定できる smallが最小、最速です。
+                             // 詳細はレスポンスフィールドに記載があります。
     // itemcode=$('#goods').val()                              
-itemLookup();
+itemLookup();  //yahoo item code
 
 // store_id + '%3A0010001903'
 $('#buttonR').on('click',  itemLookup_r);
@@ -16,8 +16,8 @@ $('#buttonBoth').on('click',function(){
   $('#content').empty();
   $('#contentR').empty();
   // itemLookup();
-  itemLookup_r();
-  itemWordY();
+  itemLookup_r();//rakuten
+  itemWordY();  //yahoo word
 
   // 'mouseenter': itemLookup(),
   // 'mouseleave': itemLookup_r()
@@ -26,6 +26,8 @@ $('#buttonBoth').on('click',function(){
 function itemLookup_r(argItemCode){
   var shopCode= $('#select').val();
   var zaikoFlg =  $('.ui.toggle').find('input').is(':checked');
+  var itemCodeFlg =  $('#itemCode').find('input').is(':checked');
+  // alert(itemCodeFlg);
   var availability = 1;
   if (zaikoFlg){
     availability = 0;
@@ -34,29 +36,38 @@ function itemLookup_r(argItemCode){
   var applicationId='1049332431882910331';
   var itemcodeR = (argItemCode)? argItemCode : $('#goods').val();
   // var itemcodeq= $('#goodsq').val();
-  $.ajax({
-  url:Rendpoint,
-  // dataType: "jsonp",
-  type: 'get',
-  data: {
-    applicationId:applicationId,
-    shopCode:shopCode,
-    keyword:itemcodeR,
-    availability:availability,    
-    format:'json',
-    // callback : 'JSON_CALLBACK',
-    // responsegroup:responsegroup,
-    // query: $('#goods').val()
-  },
-  })
+  var params = {
+      url:Rendpoint,
+      type: 'get',
+      data: {
+        applicationId:applicationId,
+        shopCode:shopCode,
+        // keyword : itemcodeR ,
+        availability:availability,    
+        format:'json'
+      }
+  };
+  if(!itemCodeFlg){
+    params.data.keyword =  itemcodeR;  
+  }
+  // 数字の方のITEMCode指定になるので、あとで //
+  // if(itemCodeFlg){
+  //                             // この指定だと動かない。オブジェクトがはいってしまう
+  //   params.data.itemCode = shopCode +':'+ itemcodeR;
+  // }
+
+
+  $.ajax(params)
   .done(function(data) {
       // console.hash(goods.Result[i]);
+      // data.count =1; //debug
       if (data.count > 0){
-      $('#contentR').append('<h3>Rakuten totalCount : ' + data.count);
+      $('#rResult').text(' totalCount : ' + data.count);
       console.hash(data);
       $.each(data.Items, function(i, item){
         // var temp = $(`<li><a href="${item.Item.itemUrl}"><img src="${item.Item.mediumImageUrls[0].imageUrl}"></a></li>);
-        var temp = '<a href='+item.Item.itemUrl+'><img src='+item.Item.mediumImageUrls[0].imageUrl+'></a>';
+        var temp =  '';
+            temp += '<a href='+item.Item.itemUrl+'><img src='+item.Item.mediumImageUrls[0].imageUrl+'></a>';
             temp += '<p>'+item.Item.itemName+'</p>';
             temp += '<p>¥'+item.Item.itemPrice+'円</p>';
             temp += '<p>'+item.Item.itemUrl+'</p>';
@@ -64,45 +75,10 @@ function itemLookup_r(argItemCode){
             temp += '<p>'+item.Item.itemCode+'</p>';
             var hanbai =(item.Item.availability)?'販売可':'販売不可';
             temp += '<p>'+ hanbai +item.Item.availability+'</p>';//availability:1 ka  0 fuka
+            temp += '';
         $('#contentR').append(temp);
       }) // each
     } // if
-        // var goods = data.ResultSet[0];
-    // var resultTotal = data.ResultSet.totalResultsReturned
-    // for(var i = 0; i < resultTotal; i++) {
-    //   var img_goods = $('<img>').attr('src', goods.Result[i].Image.Medium);
-    //   var img_goods1= '<a href='+ goods.Result[i].Url + '></a>';
-    //   $('#content').append('<p>' + goods.Result[i].Name).append(img_goods).append(img_goods1);
-    //   $('#content').append( goods.Result[i].Abstract);
-    //   $('#content').append( goods.Result[i].Abstract1);
-    //   $('#content').append( goods.Result[i].Abstract2);
-    //   $('#content').append( goods.Result[i].Inventories[i]);
-    //   $('#content').append( goods.Result[i].Url+ '<br>');
-    //   var yahooItemUrl = goods.Result[i].Url;
-    //       yahooItemUrl = '<a class="ui button blue" href = "'+ yahooItemUrl+ '" target=_blank > 商品ページへ </a>';
-    //   $('#content').append( yahooItemUrl);
-      // console.log(JSON.parse(goods.Result[i].Inventories[i]));
-      // console.log(goods.Result[i].Inventories);
-      // console.hash(goods.Result[i].Inventories);
-      // console.hash(goods.Result[i]);
-      // var Inventories =goods.Result[i].Inventories;
-      // var inventoriesTotal = Object.keys(Inventories).length;
-      // if (inventoriesTotal > 1  ){
-      //   var jTotal= inventoriesTotal;
-      //   var jArray= Inventories;
-      //   var jAll = '<br>';
-      //   for(var j = 0; j < jTotal-1 ; j++) {
-      //     jAll +=jArray[j].SubCode;
-      //     jAll +=jArray[j].Availability;
-      //     jAll +=jArray[j].Quantity;
-      //     jAll +=jArray[j].Order[0].Name;
-      //     jAll +=jArray[j].Order[0].Value;
-      //     jAll +='<br>';
-      //   }
-      //   $('#content').append( jAll );
-      // }
-      // console.hash(testObj);
-    // }
   })
   .fail(function(data) {
     alert('error');
@@ -214,6 +190,7 @@ $("input").keydown(function(event){
   $("#content").val("keyCode: " + keyCode);
   // falseを返却してキー入力処理をキャンセル
   if (keyCode === 13){
+    // itemLookup_r();//rakuten
     return false;
   }
 
