@@ -14,6 +14,13 @@ a {
 .ui.segment {
   margin-bottom: 2px;
 }
+.padding3{
+  padding:3px 8px !important ;
+}
+.tinyFont {
+  font-size: 12px;
+  line-height: 8px !important;  
+}
 @media (max-width: 1380px) {
 
   .displayNone {

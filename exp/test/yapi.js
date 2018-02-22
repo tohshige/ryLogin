@@ -1,8 +1,11 @@
+/* jshint indent:false, undef: true, unused: true, esversion: 6, jquery: false ,  globalstrict: false */
+/* globals $:false */
+
 // call from /exp/routes/index.js
 
 var itemCodeQ = $('#goodsq').val()
 var shopId = $('#select').val()
-var itemcode = (itemCodeQ) || 'shopjapan_trcs-dss'
+var itemCode = (itemCodeQ) || 'shopjapan_trcs-dss'
 var appid = 'dj00aiZpPUduRWIwMGlSMktLRiZzPWNvbnN1bWVyc2VjcmV0Jng9NGE-'
 var storeId = (shopId) || 'shopjapan'
 var responsegroup = 'large'  // small/medium/large
@@ -76,21 +79,22 @@ function itemLookupR (argItemCode) {
         var hanbai = (item.Item.availability) ? '販売可' : '販売不可'
         // availability:1 ka  0 fuka
         // var temp = $(`<li><a href="${item.Item.itemUrl}"><img src="${item.Item.mediumImageUrls[0].imageUrl}"></a></li>);
-        var temp = `<div class="ui segment">\
-        <img class="ui tiny left floated image" src=${item.Item.mediumImageUrls[0].imageUrl}> \
-        <span>${item.Item.itemName}</span> \
-        <p>¥${item.Item.itemPrice}円 \
-         ${item.Item.itemUrl} \
-         ${item.Item.itemCode} \
-         ${hanbai + item.Item.availability} \
-        <a class="ui tiny button blue left floated" href = "${item.Item.itemUrl}" target=_blank > rakuten商品ページへ </a> \
-        </div>`
+        temp = `<div class="ui raised segment">
+        <img class="ui tiny left floated image" src=${item.Item.mediumImageUrls[0].imageUrl}>
+        <a class="ui tiny button blue right floated padding3" href = "${item.Item.itemUrl}" target=_blank>
+        <span class="ui red circular label">R </span> 商品ページ</a>
+       <span class="tinyFont">${item.Item.itemName}</span>
+        <p>¥${item.Item.itemPrice}円
+         ${item.Item.itemUrl}
+         ${item.Item.itemCode}
+         ${hanbai + item.Item.availability}<br>
+         </div>`
         $('#contentR').append(temp)
       }) // each
     } // if
   })
   .fail(function (data) {
-    alert('error')
+    window.alert('error')
   })
 
   function logResults (json) {
@@ -100,7 +104,7 @@ function itemLookupR (argItemCode) {
 function itemLookupY (argItemCode) {
   var itemCodeQ = (argItemCode) || $('#goodsq').val()
   // var itemCodeQ = $('#goodsq').val();
-  var itemcode = (itemCodeQ) ? storeId + '_' + itemCodeQ : 'shopjapan_trcs-dss'
+  var itemCode = (itemCodeQ) ? storeId + '_' + itemCodeQ : 'shopjapan_trcs-dss'
   var imageSize = 300
   $.ajax({
     url: 'https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemLookupY',
@@ -108,7 +112,7 @@ function itemLookupY (argItemCode) {
     data: {
       appid: appid,
       storeId: storeId,
-      itemcode: itemcode,
+      itemcode: itemCode,
       image_size: imageSize,
       responsegroup: responsegroup
     // query: $('#goods').val()
@@ -121,9 +125,9 @@ function itemLookupY (argItemCode) {
     var goods = data.ResultSet[0]
     var resultTotal = data.ResultSet.totalResultsReturned
     for (var i = 0; i < resultTotal; i++) {
-      var img_goods = $('<img>').attr('src', goods.Result[i].Image.Medium)
-      var img_goods1 = '<a href=' + goods.Result[i].Url + '></a>'
-      $('#content').append('<p>' + goods.Result[i].Name).append(img_goods).append(img_goods1)
+      var imgGoods = $('<img>').attr('src', goods.Result[i].Image.Medium)
+      var imgGoods1 = '<a href=' + goods.Result[i].Url + '></a>'
+      $('#content').append('<p>' + goods.Result[i].Name).append(imgGoods).append(imgGoods1)
       $('#content').append(goods.Result[i].Abstract)
       $('#content').append(goods.Result[i].Abstract1)
       $('#content').append(goods.Result[i].Abstract2)
@@ -156,7 +160,7 @@ function itemLookupY (argItemCode) {
     }
   })
   .fail(function (data) {
-    alert('error')
+    window.alert('error itemLookupY')
   })
 
   function logResults (json) {
@@ -243,8 +247,8 @@ function itemWordY () {
       console.hash(goods)
 
       for (var i = 0; i < resultTotal; i++) {
-        var img_goods = $('<img>').attr('src', goods.Result[i].Image.Medium)
-        $('#content').append('<p>' + goods.Result[i].Name).append(img_goods)
+        var imgGoods = $('<img>').attr('src', goods.Result[i].Image.Medium)
+        $('#content').append('<p>' + goods.Result[i].Name).append(imgGoods)
         $('#content').append('<p>' + goods.Result[i].Url)
         var yahooItemUrl = goods.Result[i].Url
         yahooItemUrl = '<a class="ui button blue" href = "' + yahooItemUrl + '" target=_blank > 商品ページを開く </a>'
@@ -263,7 +267,7 @@ function itemWordY () {
       }
     })
     .fail(function (data) {
-      alert('error')
+      window.alert('error')
     })
   // });
 };
@@ -291,6 +295,7 @@ console.hash = function (obj) {
   */
   this.format = function (obj, times) {
     var i = 0
+    var key = []
     var _objlength = Object.keys(obj).length
     for (key in obj) {
       i++
@@ -306,13 +311,13 @@ console.hash = function (obj) {
         this.length += Object.keys(obj[key]).length
         // 再帰処理
         this.format(obj[key], times + 1)
-        if (i == _objlength) {
+        if (i === _objlength) {
           this.outText += tabs.replace(/(\t?).$/, '$1') + '}\n'
         }
         this.count++
       } else {
         this.outText += obj[key]
-        if (i != _objlength) {
+        if (i !== _objlength) {
           this.outText += ',\n'
         } else {
           this.outText += '\n' + tabs.replace(/(\t?).$/, '$1') + '}\n'
@@ -320,7 +325,7 @@ console.hash = function (obj) {
         this.count++
       }
     }
-    if (this.length == this.count) {
+    if (this.length === this.count) {
       console.log(this.outText)
     }
   }
