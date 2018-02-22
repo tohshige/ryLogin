@@ -1,54 +1,62 @@
-var itemcodeq= $('#goodsq').val();
-var shop_id= $('#select').val();
-var itemcode = (itemcodeq) ? itemcodeq : "shopjapan_trcs-dss";
-var appid ="dj00aiZpPUduRWIwMGlSMktLRiZzPWNvbnN1bWVyc2VjcmV0Jng9NGE-";
-var store_id = (shop_id) ? shop_id :"shopjapan";
-var responsegroup ='large' ; // small/medium/large
+// call from /exp/routes/index.js
+
+var itemCodeQ = $('#goodsq').val()
+var shopId = $('#select').val()
+var itemcode = (itemCodeQ) || 'shopjapan_trcs-dss'
+var appid = 'dj00aiZpPUduRWIwMGlSMktLRiZzPWNvbnN1bWVyc2VjcmV0Jng9NGE-'
+var storeId = (shopId) || 'shopjapan'
+var responsegroup = 'large'  // small/medium/large
                              // デフォルト small 取得できるデータのサイズを指定できる smallが最小、最速です。
                              // 詳細はレスポンスフィールドに記載があります。
-    // itemcode=$('#goods').val()                              
-itemLookup();  //yahoo item code
+    // itemcode=$('#goods').val()
+// itemLookupY()  // yahoo item code
+itemLookupR()  // rakuten item code
 
-// store_id + '%3A0010001903'
-$('#buttonR').on('click',  itemLookup_r);
-// $('#buttonBoth').on('click',  itemLookup_r , itemLookup );
-$('#buttonBoth').on('click',function(){
-  $('#content').empty();
-  $('#contentR').empty();
-  // itemLookup();
-  itemLookup_r();//rakuten
-  itemWordY();  //yahoo word
+// storeId + '%3A0010001903'
+$('#buttonR').on('click', itemLookupR)
+// $('#buttonBoth').on('click',  itemLookupR , itemLookupY );
+$('#buttonBoth').on('click', function () {
+  $('#content').empty()
+  $('#contentR').empty()
+  // itemLookupY();
+  itemLookupR()// rakuten
+  itemWordY()  // yahoo word
 
-  // 'mouseenter': itemLookup(),
-  // 'mouseleave': itemLookup_r()
-});
+  // 'mouseenter': itemLookupY(),
+  // 'mouseleave': itemLookupR()
+})
 
-function itemLookup_r(argItemCode){
-  var shopCode= $('#select').val();
-  var zaikoFlg =  $('.ui.toggle').find('input').is(':checked');
-  var itemCodeFlg =  $('#itemCode').find('input').is(':checked');
+  // console.log(req.query); // for logging
+  // console.log('req.query.w ' + req.query.w); // for logging
+// console.log('itemId ' + itemId) // for logging
+
+function itemLookupR (argItemCode) {
+  var shopCode = $('#select').val()
+  var zaikoFlg = $('.ui.toggle').find('input').is(':checked')
+  var itemCodeFlg = $('#itemCode').find('input').is(':checked')
   // alert(itemCodeFlg);
-  var availability = 1;
-  if (zaikoFlg){
-    availability = 0;
+  var availability = 1
+  if (zaikoFlg) {
+    availability = 0
   }
-  var Rendpoint='https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706';
-  var applicationId='1049332431882910331';
-  var itemcodeR = (argItemCode)? argItemCode : $('#goods').val();
-  // var itemcodeq= $('#goodsq').val();
+  var Rendpoint = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706'
+  var applicationId = '1049332431882910331'
+  var itemcodeR = (argItemCode) || $('#goods').val()
+  // itemcodeR = (req.query.w) ? req.query.w : $('#goods').val()
+  // var itemCodeQ = $('#goodsq').val();
   var params = {
-      url:Rendpoint,
-      type: 'get',
-      data: {
-        applicationId:applicationId,
-        shopCode:shopCode,
+    url: Rendpoint,
+    type: 'get',
+    data: {
+      applicationId: applicationId,
+      shopCode: shopCode,
         // keyword : itemcodeR ,
-        availability:availability,    
-        format:'json'
-      }
-  };
-  if(!itemCodeFlg){
-    params.data.keyword =  itemcodeR;  
+      availability: availability,
+      format: 'json'
+    }
+  }
+  if (!itemCodeFlg) {
+    params.data.keyword = itemcodeR
   }
   // 数字の方のITEMCode指定になるので、あとで //
   // if(itemCodeFlg){
@@ -56,146 +64,143 @@ function itemLookup_r(argItemCode){
   //   params.data.itemCode = shopCode +':'+ itemcodeR;
   // }
 
-
   $.ajax(params)
-  .done(function(data) {
+  .done(function (data) {
       // console.hash(goods.Result[i]);
       // data.count =1; //debug
-      if (data.count > 0){
-      $('#rResult').text(' totalCount : ' + data.count);
-      console.hash(data);
-      $.each(data.Items, function(i, item){
+    if (data.count > 0) {
+      $('#rResult').text(' totalCount : ' + data.count)
+      console.hash(data)
+      $.each(data.Items, function (i, item) {
+        var temp = ''
+        var hanbai = (item.Item.availability) ? '販売可' : '販売不可'
+        // availability:1 ka  0 fuka
         // var temp = $(`<li><a href="${item.Item.itemUrl}"><img src="${item.Item.mediumImageUrls[0].imageUrl}"></a></li>);
-        var temp =  '';
-            temp += '<a href='+item.Item.itemUrl+'><img src='+item.Item.mediumImageUrls[0].imageUrl+'></a>';
-            temp += '<p>'+item.Item.itemName+'</p>';
-            temp += '<p>¥'+item.Item.itemPrice+'円</p>';
-            temp += '<p>'+item.Item.itemUrl+'</p>';
-            temp += '<a class="ui button blue" href = "'+ item.Item.itemUrl+ '" target=_blank > rakuten商品ページへ </a>';
-            temp += '<p>'+item.Item.itemCode+'</p>';
-            var hanbai =(item.Item.availability)?'販売可':'販売不可';
-            temp += '<p>'+ hanbai +item.Item.availability+'</p>';//availability:1 ka  0 fuka
-            temp += '';
-        $('#contentR').append(temp);
+        var temp = `<div class="ui segment">\
+        <img class="ui tiny left floated image" src=${item.Item.mediumImageUrls[0].imageUrl}> \
+        <span>${item.Item.itemName}</span> \
+        <p>¥${item.Item.itemPrice}円 \
+         ${item.Item.itemUrl} \
+         ${item.Item.itemCode} \
+         ${hanbai + item.Item.availability} \
+        <a class="ui tiny button blue left floated" href = "${item.Item.itemUrl}" target=_blank > rakuten商品ページへ </a> \
+        </div>`
+        $('#contentR').append(temp)
       }) // each
     } // if
   })
-  .fail(function(data) {
-    alert('error');
-  });
+  .fail(function (data) {
+    alert('error')
+  })
 
-  function logResults(json){
-    console.log(json);
+  function logResults (json) {
+    console.log(json)
   }
-
 }
-function itemLookup(argItemCode){
-  var itemcodeq = (argItemCode)? argItemCode : $('#goodsq').val();
-  // var itemcodeq= $('#goodsq').val();
-  var itemcode= (itemcodeq) ? store_id+ '_' + itemcodeq : "shopjapan_trcs-dss";
-  var imageSize = 300;
+function itemLookupY (argItemCode) {
+  var itemCodeQ = (argItemCode) || $('#goodsq').val()
+  // var itemCodeQ = $('#goodsq').val();
+  var itemcode = (itemCodeQ) ? storeId + '_' + itemCodeQ : 'shopjapan_trcs-dss'
+  var imageSize = 300
   $.ajax({
-  url:"https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemLookup",
-  dataType: "jsonp",
-  data: {
-    appid:appid,
-    store_id:store_id,
-    itemcode:itemcode,
-    image_size:imageSize,
-    responsegroup:responsegroup,
+    url: 'https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemLookupY',
+    dataType: 'jsonp',
+    data: {
+      appid: appid,
+      storeId: storeId,
+      itemcode: itemcode,
+      image_size: imageSize,
+      responsegroup: responsegroup
     // query: $('#goods').val()
-  },
+    }
   // itemcode:"shopjapan_TRCS-DSS",
   // itemcode:"TRCS-DSS",
   // jsonpCallback: "logResults"
   })
-  .done(function(data) {
-    var goods = data.ResultSet[0];
+  .done(function (data) {
+    var goods = data.ResultSet[0]
     var resultTotal = data.ResultSet.totalResultsReturned
-    for(var i = 0; i < resultTotal; i++) {
-      var img_goods = $('<img>').attr('src', goods.Result[i].Image.Medium);
-      var img_goods1= '<a href='+ goods.Result[i].Url + '></a>';
-      $('#content').append('<p>' + goods.Result[i].Name).append(img_goods).append(img_goods1);
-      $('#content').append( goods.Result[i].Abstract);
-      $('#content').append( goods.Result[i].Abstract1);
-      $('#content').append( goods.Result[i].Abstract2);
-      $('#content').append( goods.Result[i].Inventories[i]);
-      $('#content').append( goods.Result[i].Url+ '<br>');
-      var yahooItemUrl = goods.Result[i].Url;
-          yahooItemUrl = '<a class="ui button blue" href = "'+ yahooItemUrl+ '" target=_blank > 商品ページへ </a>';
-      $('#content').append( yahooItemUrl);
+    for (var i = 0; i < resultTotal; i++) {
+      var img_goods = $('<img>').attr('src', goods.Result[i].Image.Medium)
+      var img_goods1 = '<a href=' + goods.Result[i].Url + '></a>'
+      $('#content').append('<p>' + goods.Result[i].Name).append(img_goods).append(img_goods1)
+      $('#content').append(goods.Result[i].Abstract)
+      $('#content').append(goods.Result[i].Abstract1)
+      $('#content').append(goods.Result[i].Abstract2)
+      $('#content').append(goods.Result[i].Inventories[i])
+      $('#content').append(goods.Result[i].Url + '<br>')
+      var yahooItemUrl = goods.Result[i].Url
+      yahooItemUrl = '<a class="ui button blue" href = "' + yahooItemUrl + '" target=_blank > 商品ページへ </a>'
+      $('#content').append(yahooItemUrl)
       // console.log(JSON.parse(goods.Result[i].Inventories[i]));
       // console.log(goods.Result[i].Inventories);
-      console.hash(goods.Result[i].Inventories);
-      console.hash(goods.Result[i]);
-      var Inventories =goods.Result[i].Inventories;
-      var inventoriesTotal = Object.keys(Inventories).length;
-      if (inventoriesTotal > 1  ){
-        var jTotal= inventoriesTotal;
-        var jArray= Inventories;
-        var jAll = '<br>';
-        for(var j = 0; j < jTotal-1 ; j++) {
-          jAll +=jArray[j].SubCode;
-          jAll +=jArray[j].Availability;
-          jAll +=jArray[j].Quantity;
-          jAll +=jArray[j].Order[0].Name;
-          jAll +=jArray[j].Order[0].Value;
-          jAll +='<br>';
+      console.hash(goods.Result[i].Inventories)
+      console.hash(goods.Result[i])
+      var Inventories = goods.Result[i].Inventories
+      var inventoriesTotal = Object.keys(Inventories).length
+      if (inventoriesTotal > 1) {
+        var jTotal = inventoriesTotal
+        var jArray = Inventories
+        var jAll = '<br>'
+        for (var j = 0; j < jTotal - 1; j++) {
+          jAll += jArray[j].SubCode
+          jAll += jArray[j].Availability
+          jAll += jArray[j].Quantity
+          jAll += jArray[j].Order[0].Name
+          jAll += jArray[j].Order[0].Value
+          jAll += '<br>'
         }
-        $('#content').append( jAll );
+        $('#content').append(jAll)
       }
       // console.hash(testObj);
     }
   })
-  .fail(function(data) {
-    alert('error');
-  });
+  .fail(function (data) {
+    alert('error')
+  })
 
-  function logResults(json){
-    console.log(json);
+  function logResults (json) {
+    console.log(json)
   }
-
 }
-// $('#buttonq').on('click',  itemLookup);
+// $('#buttonq').on('click',  itemLookupY);
 
 // $('#setValue').on('click', function(e){
 //   console.log($(this).val());
 //   console.log($(this).text());
-//   itemLookup();
+//   itemLookupY();
 // });
 // $('.setValue').on('click', function(e){
 //   console.log($(this).val());
 //   console.log($(this).text());
 //   $('#goodsq').val($(this).text());
-//     itemLookup();
+//     itemLookupY();
 // });
 
-
-//clear contents
-$('#buttonq').on('click',  function(e) {
-  $('#content').empty();
-  itemLookup();
-});
-$('#button').on('click',  function(e) {
-  $('#content').empty();
-});
-$('#buttonR').on('click',  function(e) {
-  $('#contentR').empty();
-});
+// clear contents
+$('#buttonq').on('click', function (e) {
+  $('#content').empty()
+  itemLookupY()
+})
+$('#button').on('click', function (e) {
+  $('#content').empty()
+})
+$('#buttonR').on('click', function (e) {
+  $('#contentR').empty()
+})
 
 // console.log(ResultSet);
 // console.log(Result);
-$("input").keydown(function(event){
-  var keyCode = event.keyCode;
-  $("#content").val("keyCode: " + keyCode);
+$('input').keydown(function (event) {
+  var keyCode = event.keyCode
+  $('#content').val('keyCode: ' + keyCode)
   // falseを返却してキー入力処理をキャンセル
-  if (keyCode === 13){
-    // itemLookup_r();//rakuten
-    return false;
+  if (keyCode === 13) {
+    // itemLookupR();//rakuten
+    return false
   }
-
-});
-/////////////////////////////////////////////
+})
+/// //////////////////////////////////////////
 // $(".ui.toggle.checkbox").checkbox("uncheck");
 
 // $('.ui.toggle.checkbox').checkbox()
@@ -209,64 +214,63 @@ $("input").keydown(function(event){
 
 // $('.ui.checkbox').checkbox({debug: true});
 
-
-function itemWordY(){
+function itemWordY () {
   // $(function() {
   // $('#button').on('click', function(e) {
-    var zaikoFlg =  $('.ui.toggle').find('input').is(':checked');
-    var availability = 1;
-    if (zaikoFlg){
-      availability = 0;
-    }
+  var zaikoFlg = $('.ui.toggle').find('input').is(':checked')
+  var availability = 1
+  if (zaikoFlg) {
+    availability = 0
+  }
     // var zaikoFlg = $('#zaiko').val();
     // console.log('zaiko : ' +zaikoFlg );
     // e.preventDefault();
-    $.ajax({
-      url:'http://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch',
-      dataType: 'jsonp',
-      async: 'true',
-      data: {
-        appid: appid,
-        store_id:store_id,
-        availability :availability,
-        query: $('#goods').val()
-      }
-    })
-    .done(function(data) {
-      var goods = data.ResultSet[0];
-      var resultTotal = data.ResultSet.totalResultsAvailable;
-      $('#content').append('<h3>Yahoo totalCount : ' + resultTotal);
-      console.hash(goods);
- 
-      for(var i = 0; i < resultTotal; i++) {
-        var img_goods = $('<img>').attr('src', goods.Result[i].Image.Medium);
-        $('#content').append('<p>' + goods.Result[i].Name).append(img_goods);
-        $('#content').append('<p>' + goods.Result[i].Url);
-        var yahooItemUrl = goods.Result[i].Url;
-        yahooItemUrl = '<a class="ui button blue" href = "'+ yahooItemUrl+ '" target=_blank > 商品ページを開く </a>';
-        $('#content').append( yahooItemUrl);
-        var racArray = goods.Result[i].Url.split('/');
-        racArray = racArray[4].split('.');
-        var RACNoItem = racArray[0];
-        var apiUrl = '<a class="setValue" href = "/y/'+ RACNoItem+ '"  id="'+ RACNoItem+ '"> '+ RACNoItem+ ' </a>';
-             apiUrl += '<a class="setValue"  id="'+ RACNoItem+ '"> '+ RACNoItem+ ' </a>';
-        $('#content').append( apiUrl);
-            apiUrl = '<button class="setValueBtn" id="'+ RACNoItem+ '">ボタン1</button>';
-            
-        $('#content').append( apiUrl);
+  $.ajax({
+    url: 'http://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch',
+    dataType: 'jsonp',
+    async: 'true',
+    data: {
+      appid: appid,
+      storeId: storeId,
+      availability: availability,
+      query: $('#goods').val()
+    }
+  })
+    .done(function (data) {
+      var goods = data.ResultSet[0]
+      var resultTotal = data.ResultSet.totalResultsAvailable
+      $('#content').append('<h3>Yahoo totalCount : ' + resultTotal)
+      console.hash(goods)
 
-        // itemLookup(RACNoItem);// 商品IDで詳細を表示
+      for (var i = 0; i < resultTotal; i++) {
+        var img_goods = $('<img>').attr('src', goods.Result[i].Image.Medium)
+        $('#content').append('<p>' + goods.Result[i].Name).append(img_goods)
+        $('#content').append('<p>' + goods.Result[i].Url)
+        var yahooItemUrl = goods.Result[i].Url
+        yahooItemUrl = '<a class="ui button blue" href = "' + yahooItemUrl + '" target=_blank > 商品ページを開く </a>'
+        $('#content').append(yahooItemUrl)
+        var racArray = goods.Result[i].Url.split('/')
+        racArray = racArray[4].split('.')
+        var RACNoItem = racArray[0]
+        var apiUrl = '<a class="setValue" href = "/y/' + RACNoItem + '"  id="' + RACNoItem + '"> ' + RACNoItem + ' </a>'
+        apiUrl += '<a class="setValue"  id="' + RACNoItem + '"> ' + RACNoItem + ' </a>'
+        $('#content').append(apiUrl)
+        apiUrl = '<button class="setValueBtn" id="' + RACNoItem + '">ボタン1</button>'
+
+        $('#content').append(apiUrl)
+
+        // itemLookupY(RACNoItem);// 商品IDで詳細を表示
       }
     })
-    .fail(function(data) {
-      alert('error');
-    });
+    .fail(function (data) {
+      alert('error')
+    })
   // });
 };
 
-$('#button').on('click', itemWordY);
+$('#button').on('click', itemWordY)
 
-////   for Debug TOOL      ////
+/// /   for Debug TOOL      ////
 /**
 連想配列を文字列に整形してコンソールに表示
 * @method console.hash
@@ -277,49 +281,49 @@ $('#button').on('click', itemWordY);
 * @property {string} outText コンソールに書き出すテキスト
 */
 // console.hash = function(obj) {
-console.hash = function(obj) {
-  this.length = Object.keys(obj).length;
-  this.count = 0;
-  this.outText = "{\n";
+console.hash = function (obj) {
+  this.length = Object.keys(obj).length
+  this.count = 0
+  this.outText = '{\n'
   /**
   * @param {hash} obj 処理対象のオブジェクト
   * @param {number} times 処理中オブジェクトの階層
   */
-  this.format = function(obj,times){
-    var i = 0;
-    var _objlength = Object.keys(obj).length;
-    for(key in obj){
-      i++;
-      //階層分のタブを追加
-      var tabs = "";
-      for(var j = 0; j < times+1; j++){
-        tabs += "\t";
+  this.format = function (obj, times) {
+    var i = 0
+    var _objlength = Object.keys(obj).length
+    for (key in obj) {
+      i++
+      // 階層分のタブを追加
+      var tabs = ''
+      for (var j = 0; j < times + 1; j++) {
+        tabs += '\t'
       }
-      this.outText += tabs + key + ":";
-      if(typeof obj[key] == "object"){
-        this.outText += "{" + "\n";
-        //下層のオブジェクト数を足す
-        this.length += Object.keys(obj[key]).length;
-        //再帰処理
-        this.format(obj[key],times+1);
-        if(i == _objlength){
-          this.outText += tabs.replace(/(\t?).$/,'$1') + "}\n";
+      this.outText += tabs + key + ':'
+      if (typeof obj[key] === 'object') {
+        this.outText += '{' + '\n'
+        // 下層のオブジェクト数を足す
+        this.length += Object.keys(obj[key]).length
+        // 再帰処理
+        this.format(obj[key], times + 1)
+        if (i == _objlength) {
+          this.outText += tabs.replace(/(\t?).$/, '$1') + '}\n'
         }
-        this.count++;
-      }else{
-        this.outText += obj[key];
-        if(i != _objlength){
-          this.outText += ",\n";
-        }else{
-          this.outText += "\n" + tabs.replace(/(\t?).$/,'$1') + "}\n";
+        this.count++
+      } else {
+        this.outText += obj[key]
+        if (i != _objlength) {
+          this.outText += ',\n'
+        } else {
+          this.outText += '\n' + tabs.replace(/(\t?).$/, '$1') + '}\n'
         }
-        this.count++;
+        this.count++
       }
     }
-    if(this.length == this.count){
-      console.log(this.outText);
+    if (this.length == this.count) {
+      console.log(this.outText)
     }
   }
-  this.format(obj,0);
+  this.format(obj, 0)
 }
 // console.hash(testObj);
