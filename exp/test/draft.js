@@ -25,3 +25,22 @@ var url = 'https://service.smt.docomo.ne.jp/procedure2/C0616/ifauth/common/regis
 '&utm_medium=' + utm_medium
 
 window.alert(url)
+
+// <script>
+ga('create', 'UA-72191316-1', {'cookieDomain': 'health.dmkt-sp.jp'})  
+ga(function (tracker) {
+  ga('set', 'referrer', document.referrer)
+  var location_search = location.search
+  var redirect_url = 'https://service.smt.docomo.ne.jp/procedure2/C0616/ifauth/common/register?serviceCode=C0616&eventCode=001&'
+  var clientId = tracker.get('clientId')	
+  var match_cid = location.search.substring(0)
+  if (match_cid) {
+    redirect_url = redirect_url + location_search.replace(match_cid[0], '') + '&dcmga_cid=' + clientId
+  } else {
+    redirect_url = redirect_url + location_search + '&dcmga_cid=' + clientId
+  }
+  window.location.href = redirect_url
+})
+// </script>
+// リダイレクト先ページのGoogleアナリティクス
+// https://goo.gl/PGkoBH
