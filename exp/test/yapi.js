@@ -69,32 +69,34 @@ function itemLookupR (argItemCode) {
 
   $.ajax(params)
   .done(function (data) {
-      // console.hash(goods.Result[i]);
-      // data.count =1; //debug
+    // console.hash(goods.Result[i]);
+    // data.count =1; //debug
     if (data.count > 0) {
       $('#rResult').text(' totalCount : ' + data.count)
+      var counter = 0
       console.hash(data)
       $.each(data.Items, function (i, item) {
+        counter++
         var temp = ''
         var hanbai = (item.Item.availability) ? '販売可' : '販売不可'
         // availability:1 ka  0 fuka
         // var temp = $(`<li><a href="${item.Item.itemUrl}"><img src="${item.Item.mediumImageUrls[0].imageUrl}"></a></li>);
-        temp = `<div class="ui raised segment">
-        <img class="ui tiny left floated image" src=${item.Item.mediumImageUrls[0].imageUrl}>
-        <a class="ui tiny button blue right floated padding3" href = "${item.Item.itemUrl}" target=_blank>
-        <span class="ui red circular label">R </span> 商品ページ</a>
-       <span class="tinyFont">${item.Item.itemName}</span>
-        <p>¥${item.Item.itemPrice}円
-         ${item.Item.itemUrl}
-         ${item.Item.itemCode}
-         ${hanbai + item.Item.availability}<br>
-         </div>`
+        temp = `
+        <div class="column ui raised segment">
+          <img class="ui tiny left floated image" src=${item.Item.mediumImageUrls[0].imageUrl}>
+          <a class="ui tiny button blue right floated padding3" href="${item.Item.itemUrl}" target=_blank>
+            <span class="ui red circular label">${counter}:R </span> 商品ページ</a>
+          <span class="tinyFont">${item.Item.itemName}</span>
+          <p>¥${item.Item.itemPrice}円 ${item.Item.itemCode} ${hanbai + item.Item.availability} ${item.Item.itemUrl} </p>
+        </div> ` // end backquat! ``
+        // temp = `<div class="column">${temp}</div>`
         $('#contentR').append(temp)
       }) // each
     } // if
   })
   .fail(function (data) {
-    window.alert('error')
+    window.alert('error itemLookupR, check console.log')
+    console.log(data)
   })
 
   function logResults (json) {
@@ -330,5 +332,57 @@ console.hash = function (obj) {
     }
   }
   this.format(obj, 0)
+}// console.hash(testObj)
+
+var cssSwitch = `
+文字サイズ
+<button class="ui tiny button" onclick="swapStyleSheet('/stylesheets/style.css')"> デフォルト小 </button>
+<button class="ui tiny button" onclick="swapStyleSheet('/')"                     > 大 </button>
+<button class="ui tiny button" onclick="swapStyleSheet('/stylesheets/styleBlack.css')"> Dark </button>
+`
+
+$('#content').append(cssSwitch)
+const setStyle = () => {
+  var sheet = localStorage.getItem('styles') // localStrageから読み込む
+  document.getElementById('stylesheets').setAttribute('href', sheet)
 }
-// console.hash(testObj);
+
+if (localStorage.getItem('styles') != null) setStyle() // 設定値がなければセット
+
+function swapStyleSheet (sheet) {
+  localStorage.setItem('styles', sheet)
+  setStyle()
+}
+
+// window.onload = function() {
+//   let blob, url;
+//   function setStyle() {
+//     var sheet = localStorage.getItem("styles");
+//     blob = new Blob([localStorage.getItem("styles")], {type:"text/css"});
+//     url = URL.createObjectURL(blob);
+//     document.getElementById("design").setAttribute("href", url);
+//   }
+
+//   if (localStorage.getItem("style") != null) setStyle();
+
+//   function swapStyleSheet(sheet) {
+//     var rules = Array.prototype.filter.call(document.styleSheets, function(styles) {
+//       return styles.href.indexOf(sheet) !== -1
+//     })[0].rules;
+//     for (var i = 0, css = ""; i < rules.length; i++)  css += rules[i].cssText;
+//     if (url) URL.revokeObjectURL(url);
+//     localStorage.setItem("styles", css);
+//     setStyle();
+//   }
+// }
+
+// // 古いの関数定義
+// function name(引数) {
+//     本体
+// }
+// // 今時はアロー関数を使って書いていきます。特に、今時の書き方は、JavaScriptでよく扱う、無名関数との相性が非常に高くなっています。
+
+// // 今時の関数定義
+// const name1 = (引数) => {
+//     本体
+// }

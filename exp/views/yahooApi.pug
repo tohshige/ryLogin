@@ -1,7 +1,8 @@
 extends layout
 
 block content
-  .ui.container.aligned.center.aligned.grid(style="margin-top:50px;")
+  //- .ui.container.aligned.center.aligned.grid(style="margin-top:50px;")
+  .ui.container.grid(style="margin-top:50px;")
     .column
       h2.ui.blue.image.header
         //- img.image(src='assets/images/logo.png')
@@ -53,6 +54,7 @@ block content
               //-   input(type='checkbox'  )
               //-   label アイテムコードで検索
 
+      //- .ui.stackable.two.column.grid#contentR
       .ui.stacked.segment.form
         .two.fields
           .field
@@ -63,7 +65,7 @@ block content
             a.ui.red.circular.label R  
             span#rResult akuten
             #contentR
-            
+
               //- .ui.toggle.checkbox
               //-   input#toggle-1(type='checkbox', name='public')
               //-   label.dn(for='toggle-1', data-content='OFF')
