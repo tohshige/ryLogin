@@ -99,9 +99,9 @@ function itemLookupR (argItemCode) {
     console.log(data)
   })
 
-  function logResults (json) {
-    console.log(json)
-  }
+  // function logResults (json) {
+  //   console.log(json)
+  // }
 }
 function itemLookupY (argItemCode) {
   var itemCodeQ = (argItemCode) || $('#goodsq').val()
@@ -165,9 +165,9 @@ function itemLookupY (argItemCode) {
     window.alert('error itemLookupY')
   })
 
-  function logResults (json) {
-    console.log(json)
-  }
+  // function logResults (json) {
+  //   console.log(json)
+  // }
 }
 // $('#buttonq').on('click',  itemLookupY);
 
@@ -334,6 +334,7 @@ console.hash = function (obj) {
   this.format(obj, 0)
 }// console.hash(testObj)
 
+// cssSwitcher
 var cssSwitch = `
 文字サイズ
 <button class="ui tiny button" onclick="swapStyleSheet('/stylesheets/style.css')"> デフォルト小 </button>
@@ -343,16 +344,19 @@ var cssSwitch = `
 
 $('#content').append(cssSwitch)
 const setStyle = () => {
-  var sheet = localStorage.getItem('styles') // localStrageから読み込む
+  var sheet = window.localStorage.getItem('styles') // localStrageから読み込む
   document.getElementById('stylesheets').setAttribute('href', sheet)
 }
 
-if (localStorage.getItem('styles') != null) setStyle() // 設定値がなければセット
-
-function swapStyleSheet (sheet) {
-  localStorage.setItem('styles', sheet)
+const swapStyleSheet = (sheet) => {
+  window.localStorage.setItem('styles', sheet)
   setStyle()
 }
+
+if (window.localStorage.getItem('styles') != null) setStyle() // 設定値有り
+else swapStyleSheet('/stylesheets/style.css') // dafault style   設定値無し
+// cssSwitcher end
+
 
 // window.onload = function() {
 //   let blob, url;
