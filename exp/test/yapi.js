@@ -337,9 +337,15 @@ console.hash = function (obj) {
 // cssSwitcher
 var cssSwitch = `
 文字サイズ
-<button class="ui tiny button" onclick="swapStyleSheet('/stylesheets/style.css')"> デフォルト小 </button>
-<button class="ui tiny button" onclick="swapStyleSheet('/')"                     > 大 </button>
-<button class="ui tiny button" onclick="swapStyleSheet('/stylesheets/styleBlack.css')"> Dark </button>
+<div id='cssBtns'>
+  <button class="ui tiny button" onclick="swapStyleSheet('/stylesheets/style.css')"> デフォルト小 </button>
+  <button class="ui tiny button" onclick="swapStyleSheet('/')"                     > 大 </button>
+  <button class="ui tiny button" onclick="swapStyleSheet('/stylesheets/styleBlack.css')"> Dark </button>
+  <button class="ui tiny button" onclick="rmStyleSheet('')"                      > Clear </button>
+
+  <div class="ui teal test labeled icon button transition visible" style="display: inline-block !important;">
+    <i class="icon user"></i> Sign-up </div>
+</div>
 `
 
 $('#content').append(cssSwitch)
@@ -353,10 +359,19 @@ const swapStyleSheet = (sheet) => {
   setStyle()
 }
 
-if (window.localStorage.getItem('styles') != null) setStyle() // 設定値有り
-else swapStyleSheet('/stylesheets/style.css') // dafault style   設定値無し
-// cssSwitcher end
+ // 設定値有り
+if (window.localStorage.getItem('styles') != null) {
+  setStyle()
+  $('.test.button').transition('horizontal flip', '1500ms') // 設定有りで消す テスト
+} else {
+  // swapStyleSheet('/stylesheets/style.css') // dafault style   設定値無し
+  $('#cssBtns').transition('jiggle', '800ms')
+}
 
+const rmStyleSheet = () => {
+  window.localStorage.removeItem('styles')
+}
+// cssSwitcher end
 
 // window.onload = function() {
 //   let blob, url;

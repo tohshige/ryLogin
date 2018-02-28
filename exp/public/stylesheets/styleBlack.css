@@ -1,4 +1,4 @@
-pre,textarea,body,input,td,tr,p {
+pre,textarea,body,input,td,tr,p,label,checkebox {
   background-color: black !important;
   background-image: none !important;
   color: #e0e0e0 !important;
@@ -15,9 +15,10 @@ h1,h2,h3,h4 {
   color: #e02020 !important;
 }
 
-a {
-  /* color: #5050f0 !important; */
-}
+/* a {
+  color: #5050f0 !important;
+} */
+
 /* dark end */
 
 
@@ -25,7 +26,7 @@ body {
   /* font-size: 10px ; */
   line-height: 1em ;
 }
-span.tinyFont{
+.tinyFont{
   font-size: 12px;
   line-height: 1em ;
 }
