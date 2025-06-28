@@ -22,6 +22,6 @@ gantt
   実装       : active, task2, 12-18,  5d
   単体テスト  :         task3, after task2, 5d
   結合テスト  :         task4, after task3, 5d
-  ```
+```
 
-2023 edited
+2025 edited
